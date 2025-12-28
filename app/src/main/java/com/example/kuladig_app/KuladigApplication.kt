@@ -23,7 +23,9 @@ class KuladigApplication : Application() {
             applicationContext,
             KuladigDatabase::class.java,
             "kuladig_database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     val repository: KuladigRepository by lazy {

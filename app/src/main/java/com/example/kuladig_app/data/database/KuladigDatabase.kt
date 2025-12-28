@@ -15,7 +15,7 @@ import com.example.kuladig_app.data.model.Project
         Project::class,
         KuladigObjectProjectCrossRef::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class KuladigDatabase : RoomDatabase() {

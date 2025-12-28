@@ -46,5 +46,9 @@ class KuladigRepository(
         projectDao.deleteAll()
         crossRefDao.deleteAll()
     }
+
+    suspend fun isDatabaseEmpty(): Boolean {
+        return kuladigDao.getObjectCount() == 0
+    }
 }
 

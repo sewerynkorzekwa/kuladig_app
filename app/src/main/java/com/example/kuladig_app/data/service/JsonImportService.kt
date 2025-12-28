@@ -2,6 +2,7 @@ package com.example.kuladig_app.data.service
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.KuladigObjectProjectCrossRef
 import com.example.kuladig_app.data.model.KuladigResponse
@@ -19,6 +20,7 @@ class JsonImportService(
     private val sharedPreferences: SharedPreferences
 ) {
     companion object {
+        private const val TAG = "JsonImportService"
         private const val PREF_KEY_IMPORTED = "json_imported"
         private const val JSON_FILE_NAME = "kuladig_response.json"
     }
@@ -26,11 +28,21 @@ class JsonImportService(
     suspend fun importIfNeeded(): Boolean {
         return withContext(Dispatchers.IO) {
             val alreadyImported = sharedPreferences.getBoolean(PREF_KEY_IMPORTED, false)
+            
+            // Prüfe sowohl den Flag als auch ob die Datenbank tatsächlich Daten enthält
             if (alreadyImported) {
-                return@withContext false
+                val isDatabaseEmpty = repository.isDatabaseEmpty()
+                if (!isDatabaseEmpty) {
+                    // Datenbank enthält Daten, Import nicht nötig
+                    Log.d(TAG, "Import bereits durchgeführt und Datenbank enthält Daten")
+                    return@withContext false
+                }
+                // Flag ist gesetzt, aber Datenbank ist leer - Import erneut durchführen
+                Log.w(TAG, "Import-Flag ist gesetzt, aber Datenbank ist leer. Führe Import erneut durch.")
             }
 
             try {
+                Log.d(TAG, "Starte Import der JSON-Daten...")
                 val inputStream = context.assets.open(JSON_FILE_NAME)
                 val jsonString = inputStream.bufferedReader().use { it.readText() }
                 inputStream.close()
@@ -38,16 +50,28 @@ class JsonImportService(
                 val json = Json { ignoreUnknownKeys = true }
                 val response = json.decodeFromString<KuladigResponse>(jsonString)
 
+                Log.d(TAG, "JSON-Datei erfolgreich gelesen. Anzahl Objekte: ${response.Ergebnis.size}")
                 importData(response)
 
+                // Flag nur bei erfolgreichem Import setzen
                 sharedPreferences.edit().putBoolean(PREF_KEY_IMPORTED, true).apply()
+                Log.d(TAG, "Import erfolgreich abgeschlossen. Daten wurden in die Datenbank eingefügt.")
                 
                 // Lösche die JSON-Datei nach erfolgreichem Import
                 deleteJsonFile()
                 
                 true
+            } catch (e: java.io.FileNotFoundException) {
+                Log.e(TAG, "JSON-Datei '$JSON_FILE_NAME' nicht in Assets gefunden", e)
+                // Flag wird bei Fehler nicht gesetzt, damit Import beim nächsten Start erneut versucht wird
+                false
+            } catch (e: kotlinx.serialization.SerializationException) {
+                Log.e(TAG, "Fehler beim Deserialisieren der JSON-Datei", e)
+                // Flag wird bei Fehler nicht gesetzt, damit Import beim nächsten Start erneut versucht wird
+                false
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e(TAG, "Unerwarteter Fehler beim Import", e)
+                // Flag wird bei Fehler nicht gesetzt, damit Import beim nächsten Start erneut versucht wird
                 false
             }
         }
@@ -93,9 +117,11 @@ class JsonImportService(
         }
 
         // Importiere in Datenbank
+        Log.d(TAG, "Füge ${kuladigObjects.size} Objekte, ${projects.size} Projekte und ${crossRefs.size} Cross-References in die Datenbank ein...")
         repository.insertAllObjects(kuladigObjects)
         repository.insertAllProjects(projects)
         repository.insertAllCrossRefs(crossRefs)
+        Log.d(TAG, "Daten erfolgreich in die Datenbank eingefügt")
     }
 
     private suspend fun deleteJsonFile() {

@@ -16,6 +16,9 @@ interface KuladigDao {
     @Query("SELECT * FROM kuladig_objects WHERE id = :id")
     suspend fun getById(id: String): KuladigObject?
 
+    @Query("SELECT COUNT(*) FROM kuladig_objects")
+    suspend fun getObjectCount(): Int
+
     @Transaction
     @Query("SELECT * FROM kuladig_objects")
     suspend fun getAllWithProjects(): List<KuladigObjectWithProjects>
