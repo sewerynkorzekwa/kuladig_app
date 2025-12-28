@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
@@ -60,7 +61,14 @@ fun Kuladig_appApp() {
             }
         }
     ) {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                SmallTopAppBar(
+                    title = { Text(currentDestination.label) }
+                )
+            }
+        ) { innerPadding ->
             when (currentDestination) {
                 AppDestinations.KARTE -> {
                     MapScreen(modifier = Modifier.padding(innerPadding))
