@@ -53,7 +53,20 @@ class KuladigApplication : Application() {
         
         // Importiere Daten beim ersten Start
         applicationScope.launch {
-            jsonImportService.importIfNeeded()
+            val importResult = jsonImportService.importIfNeeded()
+            android.util.Log.d("KuladigApplication", "Import-Ergebnis: $importResult")
+            
+            // Prüfe nach dem Import, ob Daten vorhanden sind
+            val objectCount = repository.getAllObjects().size
+            android.util.Log.d("KuladigApplication", "Anzahl Objekte in Datenbank: $objectCount")
+            
+            if (objectCount == 0) {
+                android.util.Log.w("KuladigApplication", "Datenbank ist leer nach Import. Versuche erneut...")
+                // Versuche Import erneut zu erzwingen
+                jsonImportService.forceImport()
+                val retryCount = repository.getAllObjects().size
+                android.util.Log.d("KuladigApplication", "Anzahl Objekte nach erneutem Import: $retryCount")
+            }
         }
     }
 }

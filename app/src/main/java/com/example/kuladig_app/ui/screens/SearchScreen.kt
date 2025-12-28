@@ -100,8 +100,20 @@ fun SearchScreen(
         withContext(Dispatchers.IO) {
             try {
                 allObjects = repository.getAllObjects()
+                android.util.Log.d("SearchScreen", "Geladene Objekte: ${allObjects.size}")
+                if (allObjects.isEmpty()) {
+                    android.util.Log.w("SearchScreen", "Keine Objekte in der Datenbank gefunden!")
+                    // Versuche Import zu erzwingen, falls Datenbank leer ist
+                    val importService = application.jsonImportService
+                    val importResult = importService.forceImport()
+                    android.util.Log.d("SearchScreen", "Import-Ergebnis: $importResult")
+                    // Lade Objekte erneut nach Import
+                    allObjects = repository.getAllObjects()
+                    android.util.Log.d("SearchScreen", "Objektanzahl nach Import: ${allObjects.size}")
+                }
                 isLoading = false
             } catch (e: Exception) {
+                android.util.Log.e("SearchScreen", "Fehler beim Laden der Objekte", e)
                 isLoading = false
             }
         }

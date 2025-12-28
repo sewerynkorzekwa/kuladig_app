@@ -25,6 +25,22 @@ class JsonImportService(
         private const val JSON_FILE_NAME = "kuladig_response.json"
     }
 
+    /**
+     * Setzt den Import-Flag zurück, um einen erneuten Import zu erzwingen
+     */
+    fun resetImportFlag() {
+        sharedPreferences.edit().putBoolean(PREF_KEY_IMPORTED, false).apply()
+        Log.d(TAG, "Import-Flag wurde zurückgesetzt")
+    }
+
+    /**
+     * Erzwingt einen erneuten Import, auch wenn der Flag bereits gesetzt ist
+     */
+    suspend fun forceImport(): Boolean {
+        resetImportFlag()
+        return importIfNeeded()
+    }
+
     suspend fun importIfNeeded(): Boolean {
         return withContext(Dispatchers.IO) {
             val alreadyImported = sharedPreferences.getBoolean(PREF_KEY_IMPORTED, false)
@@ -34,11 +50,13 @@ class JsonImportService(
                 val isDatabaseEmpty = repository.isDatabaseEmpty()
                 if (!isDatabaseEmpty) {
                     // Datenbank enthält Daten, Import nicht nötig
-                    Log.d(TAG, "Import bereits durchgeführt und Datenbank enthält Daten")
+                    val objectCount = repository.getAllObjects().size
+                    Log.d(TAG, "Import bereits durchgeführt und Datenbank enthält $objectCount Objekte")
                     return@withContext false
                 }
                 // Flag ist gesetzt, aber Datenbank ist leer - Import erneut durchführen
-                Log.w(TAG, "Import-Flag ist gesetzt, aber Datenbank ist leer. Führe Import erneut durch.")
+                Log.w(TAG, "Import-Flag ist gesetzt, aber Datenbank ist leer. Setze Flag zurück und führe Import erneut durch.")
+                resetImportFlag()
             }
 
             try {
@@ -47,15 +65,34 @@ class JsonImportService(
                 val jsonString = inputStream.bufferedReader().use { it.readText() }
                 inputStream.close()
 
-                val json = Json { ignoreUnknownKeys = true }
-                val response = json.decodeFromString<KuladigResponse>(jsonString)
+                Log.d(TAG, "JSON-Datei gelesen, Länge: ${jsonString.length} Zeichen")
+                Log.d(TAG, "Erste 500 Zeichen: ${jsonString.take(500)}")
 
-                Log.d(TAG, "JSON-Datei erfolgreich gelesen. Anzahl Objekte: ${response.Ergebnis.size}")
+                val json = Json { 
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                }
+                
+                val response = try {
+                    json.decodeFromString<KuladigResponse>(jsonString)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Fehler beim Deserialisieren der JSON-Datei", e)
+                    throw e
+                }
+
+                Log.d(TAG, "JSON-Datei erfolgreich gelesen. Anzahl Objekte: ${response.Ergebnis.size}, Anzahl: ${response.Anzahl}")
                 importData(response)
+
+                // Validiere, dass Daten tatsächlich eingefügt wurden
+                val insertedCount = repository.getAllObjects().size
+                if (insertedCount == 0) {
+                    Log.e(TAG, "FEHLER: Import abgeschlossen, aber Datenbank ist immer noch leer!")
+                    throw IllegalStateException("Daten wurden nicht in die Datenbank eingefügt")
+                }
 
                 // Flag nur bei erfolgreichem Import setzen
                 sharedPreferences.edit().putBoolean(PREF_KEY_IMPORTED, true).apply()
-                Log.d(TAG, "Import erfolgreich abgeschlossen. Daten wurden in die Datenbank eingefügt.")
+                Log.d(TAG, "Import erfolgreich abgeschlossen. $insertedCount Objekte wurden in die Datenbank eingefügt.")
                 
                 // Lösche die JSON-Datei nach erfolgreichem Import
                 deleteJsonFile()
