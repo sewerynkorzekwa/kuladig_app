@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,7 +52,7 @@ import kotlin.math.sqrt
 import kotlin.math.PI
 
 data class ObjectWithDistance(
-    val object: KuladigObject,
+    val kuladigObject: KuladigObject,
     val distance: Double
 )
 
@@ -160,7 +160,7 @@ fun SearchScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Zurück"
                         )
                     }
@@ -232,13 +232,13 @@ fun ObjectItemCard(
                 .padding(16.dp)
         ) {
             Text(
-                text = objectWithDistance.object.name,
+                text = objectWithDistance.kuladigObject.name,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
-            if (objectWithDistance.object.beschreibung.isNotEmpty()) {
+            if (objectWithDistance.kuladigObject.beschreibung.isNotEmpty()) {
                 Text(
-                    text = objectWithDistance.object.beschreibung,
+                    text = objectWithDistance.kuladigObject.beschreibung,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(top = 4.dp)
                 )
