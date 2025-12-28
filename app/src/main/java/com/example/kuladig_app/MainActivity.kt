@@ -10,8 +10,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -27,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
 import com.example.kuladig_app.ui.screens.MapScreen
+import com.example.kuladig_app.ui.screens.SearchScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Kuladig_appApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.KARTE) }
+    var showSearchScreen by rememberSaveable { mutableStateOf(false) }
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -67,25 +71,42 @@ fun Kuladig_appApp() {
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    title = { Text(currentDestination.label) }
+                    title = { Text(currentDestination.label) },
+                    actions = {
+                        if (currentDestination == AppDestinations.KARTE) {
+                            IconButton(onClick = { showSearchScreen = true }) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Suchen"
+                                )
+                            }
+                        }
+                    }
                 )
             }
         ) { innerPadding ->
-            when (currentDestination) {
-                AppDestinations.KARTE -> {
-                    MapScreen(modifier = Modifier.padding(innerPadding))
-                }
-                AppDestinations.FAVORITES -> {
-                    Greeting(
-                        name = "Favorites",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-                AppDestinations.PROFILE -> {
-                    Greeting(
-                        name = "Profile",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            if (showSearchScreen) {
+                SearchScreen(
+                    modifier = Modifier.padding(innerPadding),
+                    onBackClick = { showSearchScreen = false }
+                )
+            } else {
+                when (currentDestination) {
+                    AppDestinations.KARTE -> {
+                        MapScreen(modifier = Modifier.padding(innerPadding))
+                    }
+                    AppDestinations.FAVORITES -> {
+                        Greeting(
+                            name = "Favorites",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
+                    AppDestinations.PROFILE -> {
+                        Greeting(
+                            name = "Profile",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
