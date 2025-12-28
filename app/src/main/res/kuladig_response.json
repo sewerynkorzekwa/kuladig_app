@@ -1,0 +1,1258 @@
+{
+    "Anzahl": 54,
+    "Gesamtanzahl": 54,
+    "Seite": 0,
+    "AnzahlSeiten": 1,
+    "Ergebnis": [
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-274562",
+            "Name": "Alexanderkirche Zweibrücken",
+            "Beschreibung": "Die Alexanderskirche liegt in der Stadtmitte Zweibrückens, gegenüber des Herzogschlosses. Seit ihrer Erbauung (1493-1510) ist die evangelische Alexanderskirche am oberen Ende der Hauptstraße eines der Wahrzeichen der Stadt Zweibrücken.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDiD7T2EQQXnajh3pY1bMDO3Yfd4TEa3gXbX4mV9wMj8O7gPWU39mdwW87DbkHVQSWKf-PJP_14jlGov1HP4oeX90TISyKsrPd2Q1hAxDzVhE",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3639861922629777,
+                    49.24724684684589
+                ]
+            },
+            "ZuletztGeaendert": "2022-06-22T10:17:54.8072394"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354066",
+            "Name": "Alte Schmelz in Sankt Ingbert",
+            "Beschreibung": "Das Ensemble der „Alten Schmelz“ zählt zu den wichtigsten Industriedenkmälern des Saarlandes. Es dokumentiert 250 Jahre Industrie-, Wirtschafts- und Sozialgeschichte.",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGTas5RqBzcWJcfSW3iXTE-xAusWwEJH_T6aoCNeG-M3qDKIwGRzgHZ8pHrvHX67FIWPRZ6fH6TuvIuaC5H5BMOmhzq6E_P4ytMuzJu2vz2M2",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.10221611024974,
+                    49.275182055158226
+                ]
+            },
+            "ZuletztGeaendert": "2025-01-24T15:56:00.0712405"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354062",
+            "Name": "Altes Hüttenareal Neunkirchen",
+            "Beschreibung": "Die erste Eisenhütte wurde 1593 von Graf Albrecht von Ottweiler im Bliestal gründet. 1635 wurde das Werk im Dreißigjährigen Krieg zerstört. Der Wiederaufbau erfolgte 1652. Im Jahr 1752 folgte der Bau der „Oberen Schmelz“. ",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGW3dvfKrOcHo6Ee2E7ZYPlCWcPRLBDovgs3JD-8YJeaoTGPnU9AFvZ0hxu4LMvqUcO_C6rosQ0AECYbc0YFdq5mGRujUiR6jg8Ruc8QNF9rU",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.171840063163,
+                    49.347873227177459
+                ]
+            },
+            "ZuletztGeaendert": "2024-08-14T18:27:56.0242958"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-275649",
+            "Name": "Bärenhöhlen bei Rodalben",
+            "Beschreibung": "Die obere der beiden Bärenhöhlen am Bärenfelsen ist die größte natürliche Sandsteinhöhle in der Pfalz. Die Höhlen liegen am Talschluss des Langentals, das sich von Pirmasens bis nach Rodalben erstreckt.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDke4yH_yeaz5u_4K7NzEulnKNKXN8bKYM_T5T_QVVjCXeRMZ7y-wZCMx5OjHUmZUyhnOI2vNiQmHwSQjlenJEvsMioSgFvwXJ3HSHMUwr4aE",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6168328467840647,
+                    49.224341879475844
+                ]
+            },
+            "ZuletztGeaendert": "2018-06-08T15:15:59.9579182"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-352162",
+            "Name": "Bankhaus Schneider & Cie. in Pirmasens",
+            "Beschreibung": "Zur Mitte des 19. Jahrhunderts zwang die wirtschaftliche Not viele Menschen in Pirmasens und der Umgebung ihre Heimat zu verlassen. August Schneider gründete eine Auswanderer-Agentur. Diese entwickelte sich immer mehr zum Kreditinstitut, wurde zum Bankhaus Schneider & Cie. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDj_Au0h1coTI9XibYwveiseVwujcO8-rgHXHggKFCz1GhwwyreXMV0vV1mMscTnu24sGqmN-H16dhXezfy4t7IbArEFXPBdwrS4Fiqh-9Zu9",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6046198829996685,
+                    49.1998895265075
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:55:09.1637879"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-271238",
+            "Name": "Benediktinerkloster Hornbach im Bliesgau",
+            "Beschreibung": "Das Kloster Hornbach gehörte einst zur Diözese Metz und wurde vermutlich 738 n. Chr. vom irischen Wanderbischof Pirminius gegründet.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDr687YoRsJsUbw7N5jrpPi-VKhUmMjOq3yobzXiSxIwkWPUWUr-IkGPJETlhJGlHYYlBRHFPY-cENm7zQCQTkj0ncRic6sgT0gexz3DwRtLB",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3692123295890077,
+                    49.186736358976262
+                ]
+            },
+            "ZuletztGeaendert": "2019-08-02T11:37:10.2024689"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-302383",
+            "Name": "Besamungsstation Landgestüt Zweibrücken",
+            "Beschreibung": "Die Hauptfunktion eines Landgestüts, so auch des Landgestüts Zweibrücken, war stets die systematische Zucht von Pferden. Diese wird in Zweibrücken seit der Gründung des Gestüts durch Herzog Christian IV. betrieben. Auch heute noch findet in Zweibrücken Pferdezucht in der Besamungsstation statt.",
+            "Projekte": [
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDnxeuMhm496ZfKifVPAX3_y0iNl7XUDtNTZgVcBIagTXJWa1T6vyItuJ_LkVVjw-HisChDispZHPZy6Q70K6vvYX8_FT7Z67umtsOkRwUhAm",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.364043813020599,
+                    49.251652064670431
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:32:54.736434"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-352166",
+            "Name": "Bronzefiguren Schuhträgerinnen auf dem Joseph-Krekeler-Platz in Pirmasens",
+            "Beschreibung": "Auf dem Joseph-Krekeler-Platz in Pirmasens, vor dem Forum Alte Post, stehen die beiden Bronzefiguren der Schuhträgerinnen, auch Schuhmädchen genannt. Diese wurden 2015 von Martin Schöneich geschaffen und erinnern an die wichtige Rolle, die Frauen für Pirmasens gespielt haben. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDoM56HkONpZmdD0VaIjNbE5oMxctjazYFPhjDf8FUCn5Ltk1PddUoSQewrQ_RqRYgOfFmU7Wpq3Fb6Qm6ehFxHK8F5dUEANJqhkrJW997kGj",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5992088471489057,
+                    49.203805896484077
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:55:51.1406146"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-308565",
+            "Name": "Brunnenfragmente Landgestüt Zweibrücken",
+            "Beschreibung": "Auf dem Gelände des heutigen Landgestüts Zweibrücken befindet sich eine Rundsäule, die von einer steinernen Vase bekrönt wird. Bei diesem Objekt handelt es sich um das Überbleibsel eines Brunnenbeckens aus der Zeit des Petite Palais. ",
+            "Projekte": [
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDn7UFRSVcdByI8Q7KpcT3G16edWrsrrjH3OtM_96EwBDTHl9_Q6TeYMBywoWPXpNxTZCJ89JrAUY-r3lkKFo5IfFNTFu7X0vtsJtXpiqSq3y",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3634294303832961,
+                    49.251335982468355
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:33:02.7431491"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-276901",
+            "Name": "Burgruine Bundenbach bei Großbundenbach",
+            "Beschreibung": "Die im Wesentlichen frei zugängliche Burgruine befindet sich unweit westlich der Gemeinde Großbundenbach. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDjBgzxSCHk3fGQgChg_dHqZ0cptmx0CiwuuGPGJljEGwGeM18XK8QqCeK3SXQoMA2Gig7ra1r9vzChsiljYEh6kh1w5Dx3viwjOPoVet8ntK",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.4180973372713943,
+                    49.3062466749864
+                ]
+            },
+            "ZuletztGeaendert": "2019-01-04T15:33:17.9028899"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-355870",
+            "Name": "Burgruine Niederauerbach",
+            "Beschreibung": "Die frei zugängliche Ruine auf Niederauerbacher Gemarkung befindet sich auf dem vorspringenden Bergsporn eines südlichen Seitentals („Tschifflicker Delle“ bzw. am Südende der K 3 = Fasanenstraße) des Schwarzbaches. ",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDmdIdg0pwO9CurPTAdgn37xhpCpKk--vJ0sZUddEL2xqs4MYqg3H6XnquPS1PeTbn4eXnhM9VMEvNKVDneAcyNxgshgV4HbeP6BVAY3SiO7n",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3967499354832533,
+                    49.250949858151706
+                ]
+            },
+            "ZuletztGeaendert": "2025-07-02T11:35:58.6628205"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-290265",
+            "Name": "Burgruine Wiesbach auf dem Schlosskopf",
+            "Beschreibung": "Die Burgruine Wiesbach ist frei zugänglich und befindet sich auf dem Burgberg unmittelbar nördlich der Gemeinde Wiesbach. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDvQXfhlumTVsiRo_4WyzQ35LTxDsHgZoT4KCfTXS3q1xmHhtJL8vmcYgZsDDzMvtw2rJt9U_CeAsJGqGgsmZxfckp3H0xUvGWFywNU9_n3bC",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.4547855305319173,
+                    49.336371831179548
+                ]
+            },
+            "ZuletztGeaendert": "2024-08-22T08:50:06.860161"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-346073",
+            "Name": "Burguine Endenstein in Rodalben",
+            "Beschreibung": "Die eigentliche Burgstelle - eine Graben-Wall-Anlage - befindet sich auf einem 334 Meter hohen Plateau unmittelbar am Ortsrand von Rodalben.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDtxDIEtjIzG3iWhGsTKzowfZMDEjPtdx_tWTLXbtfDWjsN9zaJ1S7_YBR0TSBixxudd4DaTdefWnTaJrmpY-mtHWgRoFUTpk62sBnVQQMYKb",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6225568869335607,
+                    49.242781892586954
+                ]
+            },
+            "ZuletztGeaendert": "2024-01-10T16:43:28.2858352"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354019",
+            "Name": "Ehemalige Becker-Brauerei in Sankt Ingbert",
+            "Beschreibung": "Die Geschichte der Becker-Brauerei begann 1870, als die Gebrüder Becker die in Zahlungsschwierigkeiten geratene Grossche Brauerei, genannt \"Alte Brauerei\", erwarben.",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGa7Ok-C3XATlK3o4HbxfTkpcFwwnC7zweauWi1I-qPplv7GkESzQzNUYd0mjIacg2F7ZzVga7NUkrfcsHN2nrfc10VJnhcH-fAjvlbj2i4lW",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.1212197789024811,
+                    49.28164411130637
+                ]
+            },
+            "ZuletztGeaendert": "2025-01-24T14:42:34.975626"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-301169",
+            "Name": "Eingang Gutenbergstraße Landgestüt Zweibrücken",
+            "Beschreibung": "Die Lage des ehemaligen Eingangs zum Landgestüt zeugt von der Bedeutung, die das Gestüt für die Stadt Zweibrücken einst besessen hatte. Als Erweiterung des Herzogplatzes läuft die heutige Straße mit der Bezeichnung \"Goetheplatz\" auf den historischen Eingang zu.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDiVPvZcZVLFFh18ZHt-c7rMjBYjOTHvF3sc6Nz8tYXYyF9-CMRCdsDkH1quQ1SGFpx08i9f9M9wIgTW1GExmIzghoM3gRynFxRqYss7yWyb8",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3629418868375982,
+                    49.251093024624076
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:33:11.9146782"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354054",
+            "Name": "Erbbegräbnisstätte der Familie Stumm in Neunkirchen",
+            "Beschreibung": "Die Erbbegräbnisstätte der Familie Stumm in Neunkirchen ist ein von einer Mauer umschlossener Privatfriedhof nur für Angehörige der Familie Stumm.",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGYnt46WRfIrE997JKzNGAVj6NcP8QjbDZWkEBs27HUpQQj900yoaty4GnUpXCIoAXUauuuasdhsQlg4n11BNv7TKXBeh9bAH7kjwRgZtdIir",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.162876506559595,
+                    49.346976490080181
+                ]
+            },
+            "ZuletztGeaendert": "2024-10-22T08:50:26.4879077"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345971",
+            "Name": "Firma Gebrüder Frank in Pirmasens",
+            "Beschreibung": "Der Beginn der Industrialisierung öffnete auch dem Pirmasenser Schuhmachergewerbe die Tür zur Industriellen Fabrikation. Durch Beziehungen mit dem Ausland war es Jakob Frank möglich, die Howesche Nähmaschine zu vertreiben.",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDot5RSBcCGpKL5GtkAUe5QJ6sENxTvR60kucJtm40DxbJ6DJNOciwBYod0y2pjAACbUn_qECXYyTZs6LX6DTijz-v4zM3gPed-vdaSsFwhzF",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6042679411252285,
+                    49.201081897500352
+                ]
+            },
+            "ZuletztGeaendert": "2024-01-08T13:39:47.6249315"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345919",
+            "Name": "Firma Schön und Sandt in Pirmasens",
+            "Beschreibung": "Die Firma Schön wurde 1910 in Pirmasens von dem Lederkaufmann Johannes Schön und dem Ingenieur Max Grune, als Schuhmaschinenfabrik, gegründet. Zu Beginn wurden mechanische Schuhmaschinen, für die in dieser Zeit rasch wachsende Schuhindustrie, entwickelt und gebaut.",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDjLRUC1lZghdcP8bfsHqE5PCx2_Ax6jsyPwj0Z5cAn4ot2OuGa_mmPNbZWNQPVVjSiGwbG3clTd3tlOJRXoMPILjTm_EI-h3WlGDEC-0cqH5",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5985236879514275,
+                    49.203065418929484
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:56:18.3561164"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-286702",
+            "Name": "Flurkreuz auf dem Häselberg Reifenberg",
+            "Beschreibung": "",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDp9h5eZ4VtRkBY_OTjquDohm_RDq7CGqN4ukvn58mnN9p6xUE9toFroF5-bccYtKXQSh9C3whVkr_cgKuCsmm8_N1f6R1WXRQQdj8xLye-IO",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5188155468268292,
+                    49.281597811449465
+                ]
+            },
+            "ZuletztGeaendert": "2019-12-19T09:29:05.8955886"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-281265",
+            "Name": "Forum Alte Post in Pirmasens",
+            "Beschreibung": "Die Alte Post, ehemals \"Königlich Bayrisches Postamt\", gilt als ein Juwel der späten Gründerzeit. 1893 errichtet, war sie Ausdruck des sozialen und wirtschaftlichen Aufschwungs, den die Stadt Pirmasens ab Mitte des 19. Jahrhunderts erfuhr. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDlIsQAFggdNCMC8qNwg72vlsMnQKglDgQGOTeB4NSZjpQrGbd3D3hXqUSR7jYWBUpRjtIY-Phcy_TthVO9hb4J_nArq25lBykG_hYSs6iDka",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.598826694437939,
+                    49.203953751518078
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:58:24.599359"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354071",
+            "Name": "Geistkircher Kapelle in St. Ingbert-Rohrbach",
+            "Beschreibung": "Die kleine Kapelle am Geistkircher Hof ist eine beliebte Andachtsstätte der Marienverehrung. Sie weist auch darauf hin, dass hier schon ab dem 13. Jahrhundert eine Kirche gestanden hat, die zu dem ehemaligen, im 16. Jahrhundert untergegangenen Dorf Fronsbach gehörte.",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGbNLX-ciJoRg3jSnMBdhgX5NtU37DtuR55tWSp6ldTNch2wmXohsOLGVhoekGGZVfXYAnGYzFieSHT7fbSzT-fGc1wdtmSdsqy6IkhMh0ov6",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.1875205978411092,
+                    49.275801391937222
+                ]
+            },
+            "ZuletztGeaendert": "2024-11-06T15:06:24.5643554"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-352152",
+            "Name": "Gerberei Gebrüder Fahr im Strecktal in Pirmasens",
+            "Beschreibung": "Eine der wichtigsten Zulieferer-Industrien der Pirmasenser Schuhfabriken war die der Leder herstellenden Gerbereien der Stadt. Die Gerberei Gebrüder Fahr im Strecktal in Pirmasens zählte stets zu den innovativsten Gerbereien der Stadt. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDt3uGF9VnwRmCA8CtjJ42qnVBo4bPJ5xu9n-BEXx_rzmDxkK9h9f5H3MoxYdmOzDg7rRLgIwi8aKVKkuzlch8zAwAmt2dAtVg_an_KQ8KiYJ",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5999953905671482,
+                    49.200816795904956
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:57:19.2723836"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-352170",
+            "Name": "Geschäftsgebäude Eugen Mandel Teichstraße 10 in Pirmasens",
+            "Beschreibung": "Am südwestlichen Ende des Joseph-Krekeler-Platzes in Pirmasens und nahe dem Forum Alte Post befindet sich heute ein Parkplatz. Früher stand hier das Geschäftshaus des jüdischen Kaufmannes Eugen Mandel. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDuous5KbhsCEcEHmKwylS6kYDaHYMLoG4RSIGHMtye3pr51LeF47J12zTVUncjQv6NYQxsp0yBiJADBbaCO3B6ASuuuQeJBFMuBQvR1yoF0N",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5991257946491562,
+                    49.203354950231585
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:59:11.4805711"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-305419",
+            "Name": "Große Reithalle Landgestüt Zweibrücken",
+            "Beschreibung": "Die Große Reithalle des Landgestüts Zweibrücken wurde Mitte der 1950er Jahre anlässlich der 200-Jahr-Feier des Gestüts errichtet. Die Halle ist 20 Meter breit und 63 Meter lang und fasst 945 Sitzplätze. Genutzt wird die Reithalle für verschiedenen Reitveranstaltungen und Turniere.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDk4uIaA2hkTU4JIf8r9MA6aa5kLo69eVmmSL_PBa3ttv_nzX63zLkCx8VK5aqjcq40od4Asxw5c51EUnQ6nYw_jd8Kyp3X0UTvPuAhBHf3hu",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3662961939214222,
+                    49.252094103261143
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:33:38.5821275"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-327208",
+            "Name": "Hauptgebäude des Landgestüts Zweibrücken",
+            "Beschreibung": "Erbaut wurde das Hauptgebäude in den späten 1940er Jahren als langgestreckter Einflügelbau. Hier sind der Stutenstall und die Verwaltung des Landgestüts Zweibrücken untergebracht.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDpmRGPXRufNQqJDqOB7f3HZYTUkbUF82rKlPRRKVB0IST5PyjyYJRAThucPYnsWzeZcRJTEC9TKbeYI9vvTmkl25GNZF0hCx56WgqjzctooH",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3654307543380657,
+                    49.251911429113221
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:33:46.8786919"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345775",
+            "Name": "Jugendherberge Pirmasens",
+            "Beschreibung": "Das im Jahr 1928 errichtete denkmalgeschützte Bauwerk mit Elementen der Bauhaus-Architektur wurde nur 30 Jahre nach dem Königlich-bayerischen Postamt, heutiges Forum Alte Post, eröffnet. Grund war der wirtschaftliche Aufschwung der Stadt Pirmasens. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDhpsApW_lYh0R99AGeNjhtQs43d1KqJMf6cuzqK74WfE14oIe5Yqs6F9YyeuFPIcu6Wl-VkLTqz6eIEeq3Lvo_lJpz4HCF6qL6MRj7UtUe3b",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6005395129113413,
+                    49.2036425053449
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T09:00:00.1585095"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-346061",
+            "Name": "Kaffeegasse in Pirmasens",
+            "Beschreibung": "Bereits zur Zeit des Dreißigjährigen Krieges (1618-1648) war das Areal der heutigen Kaffeegasse in Pirmasens bekannt. In dieser Gasse wurden unter Landgraf Ludwig IX. Grenadierhäuschen erbaut, von denen sich noch eins erhalten hat. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDuE69WTQltEiFmupqsCPqmMa3PlNLsmE2oM_lWMK7fEIe6L7uRkRrHhT-W2VnqYaiO9kVjwwCVfEehJtmX6jwZL1XNaCyL2MWp9q1Y7q3-Z5",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6035650454314414,
+                    49.200434249752767
+                ]
+            },
+            "ZuletztGeaendert": "2024-03-28T06:26:38.3602569"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354061",
+            "Name": "Keltischer Grabhügel am \"Rabenhorst\" in Homburg/Saar",
+            "Beschreibung": "Die Abteilung Stadtgeschichte und Denkmalpflege der Stadt Homburg/Saar hat im Jahr 2002 einen von neun Grabhügeln untersucht.  Im Hügel 1 mit 18,5 Metern Durchmesser, zwei Metern Höhe und einem 1,2 Meter breiten Kreisgraben fanden sich zwölf späthallstatt-frühlatènezeitliche Gräber.",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGRjuGZq2yY8NIoA-xB8aHP-DTVZy5C9kAOBS3wGAODPe_q_XbmY9PGtZZq1zubYVST17BJYH8R4Hqg4d3vgEDt33oL_u8sWiTUNdKK30GsRL",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3590367754249133,
+                    49.3131909732499
+                ]
+            },
+            "ZuletztGeaendert": "2024-10-22T08:53:19.9359114"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-281172",
+            "Name": "Kirche Mariä Himmelfahrt in Labach",
+            "Beschreibung": "Die katholische Pfarrkirche Mariä Himmelfahrt in Labach liegt in der Ortsgemeinde Knopp-Labach etwa 10 Kilometer südwestlich von Landstuhl. Das Gotteshaus gilt als eine der „interessantesten und malerisch reizvollsten Dorfkirchen der Pfalz“.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDkHn6PigayDB_LWqMNFFJoYRnM1gqtcgQiPeQVkbgq7M7BcUNJMWojP6QoGkzU-LogjOCcB6wcF1hCaTLA9MEEcilbwR9zHKRMzPqwzoIbck",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5082935971417015,
+                    49.347267204298156
+                ]
+            },
+            "ZuletztGeaendert": "2018-10-12T11:19:26.8773574"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-305417",
+            "Name": "Kleine Reithalle Landgestüt Zweibrücken",
+            "Beschreibung": "Neben der großen Reithalle verfügt das Landgestüt Zweibrücken auch über eine kleine Reithalle, die als sogenannte Vorbereitungshalle für freie Trainings genutzt wird. Die kleine Reithalle ist 20 Meter breit und 40 Meter lang und wird heute von verschiedenen Vereinen und sozialen Projekten genutzt.",
+            "Projekte": [
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDqXSTSFGS3RGgj3_-2jwkKVrnlkcTj3HXyoLF-AFJkJKncMi7jjDtgaj4gSq6jGfs1OHyqC13flO0XB6-JalzMx5aNr1tg2LDWtEUi86Wc7O",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3660461582681513,
+                    49.2515545043777
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:34:10.763688"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-286704",
+            "Name": "Knopper-Mühle in Knopp-Labach",
+            "Beschreibung": "Die Knopper-Mühle liegt in der Germarkung der Gemeinde Knopp-Labach im Bereich des ehemaligen Ortes Nieder-Labach.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDg7_J-mKCFNB5ipaMNg5QDRGiTeEDsimua2p60iLSOFVoxIN-afG0x7N5nkNX7m40oVIYwvE9PteNVqIk1hE1FiaHt3y3PaevWx7ropj_pms",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5208008293664586,
+                    49.332898936857042
+                ]
+            },
+            "ZuletztGeaendert": "2018-10-12T11:20:47.3524041"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345830",
+            "Name": "Kolbendampfmaschine in der Maschinenhalle der Eduard Rheinberger AG",
+            "Beschreibung": "In der Maschinenhalle im Rheinberger-Gebäudekomplex befindet sich heute noch am Originalstandort eine Kolbendampfmaschine. Sie ging im Jahre 1941 in Betrieb und versorgte die Rheinberger Schuhfabrik mit der benötigten Elektrizität. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDnH84s007vWsoxSYtGWjfegE7r4C-KJqWXlB8BUloJfHFdiuNzGCfLbT4H7ubp-FP43r03u43Dg9xJ6YiTmJ4JzFyVbIy5XjfWl5PeQ6jLrs",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5994384868756741,
+                    49.2018783238563
+                ]
+            },
+            "ZuletztGeaendert": "2024-04-04T08:26:34.4040303"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-283449",
+            "Name": "Kriegergedächtniskapelle Reifenberg",
+            "Beschreibung": "Die Kapelle auf dem Häselberg liegt etwa 100 Meter östlich von Reifenberg. Sie wurde in den Jahren von 1924 bis 1926 unter Mithilfe der Bevölkerung zum Gedenken an die Gefallenen im Ersten Weltkrieg errichtet.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDklWyaajiX3LGvZ6ME_hXYEvrYEzlwKCRL9_VEfTEsAPr_HBUcAfltUJRNh_dr36rnGixUAsbIiTsSWN5C_uvLSky_Nk7APWTfIbAxH6l1A6",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5185868483343867,
+                    49.281545589620315
+                ]
+            },
+            "ZuletztGeaendert": "2018-10-12T13:11:47.587361"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-283525",
+            "Name": "Landgestüt Zweibrücken",
+            "Beschreibung": "Das Zweibrücker Landgestüt wurde im Jahre 1755 von Herzog Christian IV. von Pfalz-Zweibrücken zur Förderung der Pferdezucht gegründet. Heute liegt die Betriebsführung bei der Landgestüt Zweibrücken GmbH.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDull6frw0G24MFGejw_2TDBKnG6K0w347uzX4bgazxEuKgTEQnNMPTAMhscpsPIAjmu1Id_l1TELvoknZVGjNss4IxecacCtAC2QH0UbUdXT",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3647500116730775,
+                    49.2515812530225
+                ]
+            },
+            "ZuletztGeaendert": "2022-03-11T13:41:39.232422"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-275643",
+            "Name": "Lutherkirche in Pirmasens",
+            "Beschreibung": "Bei der Lutherkirche in Pirmasens handelt es sich um den bereits fünften Bau an gleicher Stelle, welcher erst nach den Zerstörungen des Zweiten Weltkriegs (1939-1945) im Jahr 1949 wiedererrichtet wurde. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDiVPvZcZVLFFh18ZHt-c7rMjBYjOTHvF3sc6Nz8tYXYywBnwu1zHqzVNQcumP8crv3FJxnKKv-OfaHG_tF7MSyqAcyu7PH8viIZDGZhJ7IOf",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6049664262462109,
+                    49.19810931766861
+                ]
+            },
+            "ZuletztGeaendert": "2023-12-15T09:10:32.2317859"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-281091",
+            "Name": "Marienkirche in Rodalben",
+            "Beschreibung": "Die Marienkirche in Rodalben wurde Mitte des 14. Jahrhunderts erbaut. Im Laufe der Jahrhunderte wurde sie mehrmals zerstört, wiederaufgebaut und erweitert. Von der ursprünglichen Marienkirche existieren heute nur noch der alte Chor sowie der massive Westturm. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDl0mKUDszUxTL5YrpIC1MLXOOMZlLbc3o4slpeG1fWcQLrYQ6IkvmUwAI47YPQBjf5yq5xmhIt4T33kIxwsUZiqxDoTfy0Uuax5UEKXexQwd",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6320376909744212,
+                    49.240340243092817
+                ]
+            },
+            "ZuletztGeaendert": "2018-08-29T10:58:13.3267263"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-286703",
+            "Name": "Missionskreuz Labach",
+            "Beschreibung": "Das Missionskreuz Labach ist ein Christuskreuz aus rotem Sandstein. Es steht am westlichen Rand des Friedhofs von Labach direkt vor der Friedhofsmauer.  Es wurde im Jahre 1902 errichtet.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDjkVLEUxy-5RBl6mfPWwSb_2fpDZhaPWKJhPVT9htEpH75s9mvHWCVoBpy5bZoV4bcVxZtTnoMhYvCtDoYT7hcESHYsSMjvVCxyZqiIlg9hl",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5078942139971021,
+                    49.346977678747493
+                ]
+            },
+            "ZuletztGeaendert": "2020-06-06T17:05:02.1347642"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-346056",
+            "Name": "Mutterhaus der Hildegardisschwestern vom Katholischen Apostolat in Pirmasens",
+            "Beschreibung": "Das frühere Schwesternheim der Kirchengemeinde St. Anton in Pirmasens ist seit 2004 das Mutterhaus der Hildegardisschwestern vom Katholischen Apostolat in Pirmasens.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDsXPYfEHb_zVXe0kn5hOD-qf-RiIuNh2U3P4KNhUZGK3FnMsiUoPOVXn8HUyxouqSZVr9c0gynGGYuikqiAVAMzbaoV-Wz_AcVVGTDhv60dM",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.59790205150944,
+                    49.194596062749952
+                ]
+            },
+            "ZuletztGeaendert": "2024-01-10T09:52:19.5556494"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-272257",
+            "Name": "Parkanlage Rosengarten Zweibrücken",
+            "Beschreibung": "Der erstmals 1914 eröffnete Rosengarten beherbergt auf einer Fläche von rund 4,5 Hektar hunderte verschiedene Rosen-, Stauden- und Gehölzsorten. Zusätzlich werden in den Schmuckbeeten alljährlich wechselnder Frühjahrs- und Sommerflor gepflanzt.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDt1bZaLG0xwG5wBGTy8OKfg2LqDM7N6TuzKMwa8_DDq0sp6p8QOFhho4-TNftB19G12NHX24oc1nXKZLhwV2hXJaqPg2xZ21ma6tD6fFl5wv",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3719130986884593,
+                    49.251504068168735
+                ]
+            },
+            "ZuletztGeaendert": "2018-09-04T13:22:31.2536046"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-308563",
+            "Name": "Reitplatz Landgestüt Zweibrücken",
+            "Beschreibung": "An der Stelle des heutigen Reitplatzes befand sich vor 1893 das Petite Palais der Gräfin von Forbach. Das Schlösschen war anlässlich der heimlichen Hochzeit der Gräfin von Forbach mit Herzog Christian IV. 1757 erbaut und in den Wirren des Revlutionskrieges im Jahr 1893 zerstört worden. ",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDjX0SJZNMgDFYmTDut1ZRpLkNt7lBYJLxiU5b5xne9I87FWK17J7mbU5UH7QkNatDz_U_n8c06N4dwowyQtHHxkSSEBn6P4F1TiWlW5Mul4O",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3650162429597383,
+                    49.251451901163939
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:35:27.8556413"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-283526",
+            "Name": "Rennwiese Zweibrücken",
+            "Beschreibung": "Das erste Pferderennen auf der Rennwiese mitten in der Stadt Zweibrücken ist für den 26. August 1821 belegt, ein Jahr vor dem Pferderennen in Bad Doberan. Zweibrücken ist damit einer der ältesten Rennstandorte in Deutschland.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDoFXeTMK-G-_Dsq0HIW9rkExdjJw865dgj1QPbrj0xwVfqGa-wu0gqbzP3oFxezhMb51kuUhlLvr1eVSxIitUGQtlvOYgoxoOGAwnD6zaZBJ",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3723401000461095,
+                    49.253442599397758
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:35:38.1829617"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-283516",
+            "Name": "Residenzstadt Zweibrücken",
+            "Beschreibung": "Zweibrücken, mit etwa 36.400 Einwohnern die kleinste kreisfreie Stadt Deutschlands, blickt trotz der fast vollständigen Zerstörung im Jahre 1945 auf eine große Geschichte.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDqXSTSFGS3RGgj3_-2jwkKVrnlkcTj3HXyoLF-AFJkJKNYe5YE1rqBrZun2juIX-2MWp9HH32Z6m_pnRAb320xii_PSa-4ANBCbkI7qEYxl-",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3609347531859033,
+                    49.250648495847983
+                ]
+            },
+            "ZuletztGeaendert": "2020-05-05T16:26:21.4993065"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-343793",
+            "Name": "Rischbachstollen des ehemaligen Bergwerks St. Ingbert",
+            "Beschreibung": "Der Rischbachstollen ist ein Teil der ehemaligen Grube Sankt Ingbert, die 1959 geschlossen wurde. ",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGdG6_3S16WHXzWgRtwIuArcUragTdto6-2Ij6y0j7m5NwGTuVQF95eX1-uKAxJJgNzJHIahnDEUI_xEy3hj7mhswJAVKm7jibKhmPYfG6YDF",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.098673964113031,
+                    49.285647837493052
+                ]
+            },
+            "ZuletztGeaendert": "2024-07-28T16:39:02.0146125"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-354020",
+            "Name": "Saarländisches Bergbaumuseum in Bexbach",
+            "Beschreibung": "Das saarländische Bergbaumuseum im Bexbacher Hindenburgturm vereint Geschichte, Technik und Natur. Das Museum wurde bereits 1934 gegründet und seitdem immer wieder weiterentwickelt und vergrößert. ",
+            "Projekte": [
+                [
+                    4100,
+                    "Industriekulturradweg Aachen-Saarbrücken"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YN9Zw5G1txr7CCAGQfp0DCGRX-OhX5ONtDyQbexCjQVt0HVgz-bEu-pWpx-iW6egbruqENMGH7qsGKZ7ubQmim54V-7yk2NpYPT3LeMa6x_otxZcwpVAl2etSYtT98444v",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.2611284610533779,
+                    49.342338755408043
+                ]
+            },
+            "ZuletztGeaendert": "2024-11-07T12:51:00.968038"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-324062",
+            "Name": "Sattelkammer Landgestüt Zweibrücken",
+            "Beschreibung": "Im Jahre 1946 wurde mit dem Bau des Einflügelgebäudes begonnen. Zu den alten und kostbaren Stücken der Sattelkammer gehören Sättel und Zaumzeug aus der Zeit, als die Pfalz noch Teil des Königreichs Bayern war.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDsLXUiJAjiIaTU3oE-VB-k0iMPVma6j6haEwar2dLWR_UgxCfXejf9rBCKeybNHhSidu3looZGK0azHe5v_NBKidxrhb1DVY8r9P9CDw3PqC",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3636789455421985,
+                    49.251577345302479
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:36:23.9856107"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345778",
+            "Name": "Schuhfabrik Eduard Rheinberger AG",
+            "Beschreibung": "In der Fröhnstraße 2-8 in Pirmasens, nordöstlich des Strecktals, befindet sich das imposante Gebäude der ehemaligen Schuhfabrik Eduard Rheinberger AG. Gegründet im Jahre 1882 durch Eduard Rheinberger, erlebte die Firma im frühen 20. Jahrhundert einen enormen wirtschaftlichen Aufschwung. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDo5Kd-ucaDttKPMUZcdG9AK0gQphLRpG737gxs9ZhCRyZ7FNps7UKqZM64dOQjDlTCACRUtP4ow4FI8-32atiaKbACC1kl6sqeb3OPfqZ_lR",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.5991765986781337,
+                    49.202004483026293
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T09:01:09.3197974"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-346035",
+            "Name": "Schuhfabrik Kopp in Pirmasens",
+            "Beschreibung": "Die ehemalige Kopp-Schuhfabrik prägt wie eine Trutzburg auf felsigem Grund noch heute das Stadtbild von Pirmasens. Der fünfeckige Gebäude-Komplex, durch Erweiterungsbauten sukzessive vergrößert, blickt auf eine bewegte Historie zurück. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDr2ahyh3Ir4wiot20-5ZlRAzt41OUv73EcpYScQI5ogOmXIKoUGi-PhA3NVPZzGOJM7qpXhz607U5S0x25LZKLR92C9O2oF23ci8IeQLkLHo",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6029455736153206,
+                    49.200689095973559
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T09:02:36.6479448"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-345956",
+            "Name": "Schusterbrunnen in der Fußgängerzone in Pirmasens",
+            "Beschreibung": "Noch heute erinnert der Schuster-Joß-Brunnen unmittelbar vor der Lutherkirche in der Fußgängerzone von Pirmasens an die Legende vom Schuster Joß und dem Beginn der lokalen Schuhindustrie.  ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDifxQTHihXht844hZKBLBTOz6af4dMp8PbNJtz9bZTzDpBsNT1yMdE8_l5MPXHybrjYalsSQY0skOyo-7rFLGBtQRx3z2Al8J8yuF169qeGc",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6048928448985365,
+                    49.198396765879764
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T09:03:31.1729407"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-277981",
+            "Name": "Simultankirche Sankt  Philippus und Jakobus in Vogelbach",
+            "Beschreibung": "Die Simultankirche in Vogelbach mit den Patronen St. Philippus und Jakobus wurde 1131 erbaut und 20 Jahre später als Spitalkirche eingerichtet. Seit der Reformationszeit wird die Kirche von beiden christlichen Konfessionen genutzt und wird somit bis heute Simultankirche genannt. ",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDvKRX1fUovueqTml2voeJnL-CmzO5-KmgguTTRX_ZUHc3ayTZL6ACx-YCPX-Hu1uXek0fHSSxqrchV4LnXBOOKSrsdmL-ChPSMDX7YfbJHdA",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.4274130029986507,
+                    49.379272123082927
+                ]
+            },
+            "ZuletztGeaendert": "2024-12-17T15:35:42.0629641"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-309581",
+            "Name": "Steinenschloss bei Thaleischweiler-Fröschen",
+            "Beschreibung": "Die Burgruine Steinenschloss wurde um das Jahr 1100 auf einem Spornausläufer des Schloßbergs am nordwestlichen Rand der Gemarkung Thaleischweiler-Fröschen erbaut.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDtOnV8GZglNu2HfU5fn2HfJf5sKO8G3Qmj6LF0ZCT67c75NCMAagDzOsa2oIkxJhzXGHEwoH4xkna7SJWz8KG3a30I4qGLMAjuX_0s1T0aSJ",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6054730576636507,
+                    49.265550855275634
+                ]
+            },
+            "ZuletztGeaendert": "2024-02-13T08:17:15.8385177"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-324064",
+            "Name": "Stutenstall Landgestüt Zweibrücken",
+            "Beschreibung": "Der Stutenstall des Landgestüts Zweibrücken ist im linken Teil des Hauptgebäudes untergebracht. ",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDrtJeT23cPmvcIPo9AW2AvPlGVyhVc6bdBkIuTe2jgvrJowbfTTzBCt1kQWzPCGQay0BpzRKb9jThulBdpUyaH4vd3M4Am1p5a0KvsMN0W6T",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3651550870770972,
+                    49.251860972214757
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:36:46.8903617"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-308564",
+            "Name": "Trakehner-Stall Landgestüt Zweibrücken",
+            "Beschreibung": "Der Trakehner-Stall diente niemals Trakehner-Pferden als Stallung. Vielmehr soll die Bezeichnung daran erinnern, dass die vor Ort gezüchteten Zweibrücker-Warmblüter sogar die weitaus bekanntere und auch ältere Pferderasse der Trakehner beeinflusst haben.",
+            "Projekte": [
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ],
+                [
+                    4097,
+                    "Modellkommunen Rheinland-Pfalz 2019"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDkM1g6lpOYHHEhCR4R7Pbm2YNVcs9Ofqfb2By-kH5rVBIHfxqDVIP1RdZ-0EEhrQyeMF2eazy6HIWZopjH3DoLzqsD25wlugx72AXm1fFd1k",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.3665972277574472,
+                    49.251595427249718
+                ]
+            },
+            "ZuletztGeaendert": "2022-01-11T10:36:54.8063504"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-270998",
+            "Name": "Westricher Moorniederung",
+            "Beschreibung": "Die Westricher Moorniederung, auch Westpfälzische Moorniederung genannt, weist auf eine ausgedehnte Moorlandschaft hin, deren Gestalt sich durch über 250 Jahre Kultivierung stark verändert hat. Der historische Name der Westricher Moorniederung ist Reichswald-Gebrüch.",
+            "Projekte": [
+                [
+                    1047,
+                    "Pilotprojekt Kulturlandschaft Pfälzerwald"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDlgQsgTAncqtRyDAnpqm3mfeTl_kPCnG2DN7zAjwn2YqazSOjGFo6pC1yjbyS1j3y5swHcoB-vSZOl9i2crogLysTRGWURvI51_UuZGs2hyg",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.38469892576075,
+                    49.376599911344222
+                ]
+            },
+            "ZuletztGeaendert": "2022-08-02T14:22:22.6061185"
+        },
+        {
+            "Objekttyp": "Kuladigobjekt",
+            "Id": "KLD-352159",
+            "Name": "Wohnhaus Kaffeegasse Nummer 12",
+            "Beschreibung": "Das kleine Haus in der Kaffeegasse mit der Hausnummer 12 gleicht in seinem Aussehen den Grenadierhäusern, die gegen Mitte des 18. Jahrhunderts in der Ringstraße und der Gärtnerstraße in Pirmasens erbaut wurden. ",
+            "Projekte": [
+                [
+                    4119,
+                    "Modellkommunen Rheinland-Pfalz 2023"
+                ],
+                [
+                    1067,
+                    "Kulturlandschaften Rheinland-Pfalz"
+                ]
+            ],
+            "ThumbnailToken": "BI2aXCqgCsa4lsWamUKQflbUYGYIPm0QsThGcUdivZq1sb1oFABzaBHt1uH3QyIU4YClT5S-O6GS2meHuwREma65g6d_0sUw56CDY0727hNatVX9H2V2VM_KQeSGU1YNqZowTXnitJuc8EQNWSVaDoJgMphjP_bHO_roOTsVdwv_HgdtpAL3tfOr9Ym8gAX7XWhAHiRjTQ8OigrS3rnuuEt5VSRvYNrl-uuKbZsbBNkB09qwpaNGFQDa-cHlZU6V",
+            "Punktkoordinate": {
+                "type": "Point",
+                "coordinates": [
+                    7.6031269458035373,
+                    49.200305331532157
+                ]
+            },
+            "ZuletztGeaendert": "2025-03-21T08:44:31.8645717"
+        }
+    ]
+}
