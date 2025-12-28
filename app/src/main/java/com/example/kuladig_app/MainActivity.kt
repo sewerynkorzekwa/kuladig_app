@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
+import com.example.kuladig_app.ui.screens.MapScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +61,23 @@ fun Kuladig_appApp() {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Greeting(
-                name = "Android",
-                modifier = Modifier.padding(innerPadding)
-            )
+            when (currentDestination) {
+                AppDestinations.KARTE -> {
+                    MapScreen(modifier = Modifier.padding(innerPadding))
+                }
+                AppDestinations.FAVORITES -> {
+                    Greeting(
+                        name = "Favorites",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+                AppDestinations.PROFILE -> {
+                    Greeting(
+                        name = "Profile",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
         }
     }
 }
