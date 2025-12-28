@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -99,7 +100,9 @@ fun MapScreen(modifier: Modifier = Modifier) {
             LaunchedEffect(userLocation) {
                 userLocation?.let {
                     cameraPositionState.animate(
-                        CameraPosition.fromLatLngZoom(it, 15f)
+                        CameraUpdateFactory.newCameraPosition(
+                            CameraPosition.fromLatLngZoom(it, 15f)
+                        )
                     )
                 }
             }
