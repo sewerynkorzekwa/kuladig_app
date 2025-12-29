@@ -456,7 +456,4 @@ fun MapScreen(
         }
     }
 }
-        }
-    }
-}
 
