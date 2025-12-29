@@ -13,12 +13,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import com.example.kuladig_app.KuladigApplication
+import com.example.kuladig_app.data.model.KuladigObject
+import com.example.kuladig_app.ui.components.MarkerInfoBottomSheet
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,10 +32,15 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import kotlinx.coroutines.launch
 
 @Composable
 fun MapScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
+    val application = context.applicationContext as KuladigApplication
+    val repository = remember { application.repository }
+    val scope = rememberCoroutineScope()
+    
     val fusedLocationClient: FusedLocationProviderClient = remember {
         LocationServices.getFusedLocationProviderClient(context)
     }
@@ -50,6 +59,9 @@ fun MapScreen(modifier: Modifier = Modifier) {
     }
 
     var userLocation by remember { mutableStateOf<LatLng?>(null) }
+    var kuladigObjects by remember { mutableStateOf<List<KuladigObject>>(emptyList()) }
+    var selectedObject by remember { mutableStateOf<KuladigObject?>(null) }
+    var showBottomSheet by remember { mutableStateOf(false) }
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
@@ -77,6 +89,13 @@ fun MapScreen(modifier: Modifier = Modifier) {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        }
+    }
+
+    // Lade KuladigObjects aus der Datenbank
+    LaunchedEffect(Unit) {
+        scope.launch {
+            kuladigObjects = repository.getAllObjects()
         }
     }
 
@@ -117,6 +136,31 @@ fun MapScreen(modifier: Modifier = Modifier) {
                         title = "Ihr Standort"
                     )
                 }
+                
+                // Marker für alle KuladigObjects
+                kuladigObjects.forEach { obj ->
+                    Marker(
+                        state = MarkerState(position = LatLng(obj.latitude, obj.longitude)),
+                        title = obj.name,
+                        snippet = obj.beschreibung,
+                        onClick = {
+                            selectedObject = obj
+                            showBottomSheet = true
+                            true
+                        }
+                    )
+                }
+            }
+            
+            // Bottom Sheet für Marker-Details
+            if (showBottomSheet) {
+                MarkerInfoBottomSheet(
+                    kuladigObject = selectedObject,
+                    onDismiss = {
+                        showBottomSheet = false
+                        selectedObject = null
+                    }
+                )
             }
         }
     }
