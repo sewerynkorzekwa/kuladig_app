@@ -145,6 +145,16 @@ fun MapScreen(
         }
     }
     
+    // Kamera-State außerhalb des else-Blocks definieren, damit es überall verfügbar ist
+    val cameraPositionState = rememberCameraPositionState {
+        position = userLocation?.let {
+            CameraPosition.fromLatLngZoom(it, 15f)
+        } ?: CameraPosition.fromLatLngZoom(
+            LatLng(52.5200, 13.4050), // Berlin als Fallback
+            10f
+        )
+    }
+    
     // Verarbeite initialRouteRequest von SearchScreen
     LaunchedEffect(initialRouteRequest) {
         initialRouteRequest?.let { (obj, mode) ->
@@ -207,15 +217,6 @@ fun MapScreen(
                 modifier = Modifier.align(Alignment.Center)
             )
         } else {
-            val cameraPositionState = rememberCameraPositionState {
-                position = userLocation?.let {
-                    CameraPosition.fromLatLngZoom(it, 15f)
-                } ?: CameraPosition.fromLatLngZoom(
-                    LatLng(52.5200, 13.4050), // Berlin als Fallback
-                    10f
-                )
-            }
-
             LaunchedEffect(userLocation) {
                 userLocation?.let {
                     cameraPositionState.animate(
