@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Directions
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,6 +30,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.example.kuladig_app.KuladigApplication
 import com.example.kuladig_app.data.model.KuladigObject
+import com.example.kuladig_app.data.model.TravelMode
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -59,7 +64,8 @@ data class ObjectWithDistance(
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onRouteRequest: (KuladigObject, TravelMode) -> Unit = { _, _ -> }
 ) {
     val context = LocalContext.current
     val application = context.applicationContext as KuladigApplication
@@ -218,7 +224,10 @@ fun SearchScreen(
                     items(objectsWithDistance) { item ->
                         ObjectItemCard(
                             objectWithDistance = item,
-                            userLocation = userLocation
+                            userLocation = userLocation,
+                            onRouteRequest = { mode ->
+                                onRouteRequest(item.kuladigObject, mode)
+                            }
                         )
                     }
                 }
@@ -230,13 +239,16 @@ fun SearchScreen(
 @Composable
 fun ObjectItemCard(
     objectWithDistance: ObjectWithDistance,
-    userLocation: LatLng?
+    userLocation: LatLng?,
+    onRouteRequest: (TravelMode) -> Unit = {}
 ) {
     val distanceText = if (userLocation != null && objectWithDistance.distance != Double.MAX_VALUE) {
         formatDistance(objectWithDistance.distance)
     } else {
         null
     }
+    
+    var showTravelModeDialog by remember { mutableStateOf(false) }
     
     ListItem(
         headlineContent = {
@@ -261,15 +273,33 @@ fun ObjectItemCard(
             )
         },
         trailingContent = {
-            if (distanceText != null) {
-                Text(
-                    text = distanceText,
-                    fontWeight = FontWeight.Medium
-                )
+            Column {
+                if (distanceText != null) {
+                    Text(
+                        text = distanceText,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                IconButton(onClick = { showTravelModeDialog = true }) {
+                    Icon(
+                        imageVector = Icons.Default.Directions,
+                        contentDescription = "Route anzeigen"
+                    )
+                }
             }
         },
         modifier = Modifier.fillMaxWidth()
     )
+    
+    if (showTravelModeDialog) {
+        TravelModeDialog(
+            onDismiss = { showTravelModeDialog = false },
+            onModeSelected = { mode ->
+                showTravelModeDialog = false
+                onRouteRequest(mode)
+            }
+        )
+    }
 }
 
 /**
@@ -301,5 +331,40 @@ fun formatDistance(distanceInMeters: Double): String {
         val km = distanceInMeters / 1000.0
         "%.1f km".format(km)
     }
+}
+
+@Composable
+private fun TravelModeDialog(
+    onDismiss: () -> Unit,
+    onModeSelected: (TravelMode) -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Transportmodus wählen") },
+        text = {
+            Column {
+                Text("Wie möchten Sie reisen?")
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { onModeSelected(TravelMode.WALKING) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Zu Fuß")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = { onModeSelected(TravelMode.DRIVING) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Auto")
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Abbrechen")
+            }
+        }
+    )
 }
 

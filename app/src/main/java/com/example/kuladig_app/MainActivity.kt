@@ -30,6 +30,8 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
 import com.example.kuladig_app.ui.screens.MapScreen
 import com.example.kuladig_app.ui.screens.SearchScreen
+import com.example.kuladig_app.data.model.KuladigObject
+import com.example.kuladig_app.data.model.TravelMode
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,7 @@ class MainActivity : ComponentActivity() {
 fun Kuladig_appApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.KARTE) }
     var showSearchScreen by rememberSaveable { mutableStateOf(false) }
+    var routeRequest by rememberSaveable { mutableStateOf<Pair<KuladigObject, TravelMode>?>(null) }
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -88,12 +91,21 @@ fun Kuladig_appApp() {
             if (showSearchScreen) {
                 SearchScreen(
                     modifier = Modifier.padding(innerPadding),
-                    onBackClick = { showSearchScreen = false }
+                    onBackClick = { showSearchScreen = false },
+                    onRouteRequest = { obj, mode ->
+                        showSearchScreen = false
+                        currentDestination = AppDestinations.KARTE
+                        routeRequest = Pair(obj, mode)
+                    }
                 )
             } else {
                 when (currentDestination) {
                     AppDestinations.KARTE -> {
-                        MapScreen(modifier = Modifier.padding(innerPadding))
+                        MapScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            initialRouteRequest = routeRequest,
+                            onRouteRequestHandled = { routeRequest = null }
+                        )
                     }
                     AppDestinations.FAVORITES -> {
                         Greeting(
