@@ -7,7 +7,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -20,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -103,55 +108,6 @@ fun MapScreen(
     
     val coroutineScope = rememberCoroutineScope()
     
-    // Hilfsfunktion zum Berechnen einer Route
-    fun calculateRouteToDestination(
-        origin: LatLng,
-        destination: KuladigObject,
-        mode: TravelMode
-    ) {
-        if (directionsService == null) {
-            routeError = "Directions Service nicht verfügbar"
-            return
-        }
-        
-        isLoadingRoute = true
-        routeError = null
-        
-        coroutineScope.launch {
-            val destinationLatLng = LatLng(destination.latitude, destination.longitude)
-            val result = directionsService.getRoute(origin, destinationLatLng, mode)
-            
-            result.fold(
-                onSuccess = { route ->
-                    val polylinePoints = directionsService.decodePolyline(route.overview_polyline.points)
-                    currentRoute = route
-                    routePolylinePoints = polylinePoints
-                    routeStartMarker = null // Reset nach erfolgreicher Berechnung
-                    isLoadingRoute = false
-                    
-                    // Kamera auf Route zentrieren
-                    if (route.legs.isNotEmpty()) {
-                        val start = route.legs.first().start_location
-                        val end = route.legs.first().end_location
-                        val center = LatLng(
-                            (start.lat + end.lat) / 2,
-                            (start.lng + end.lng) / 2
-                        )
-                        cameraPositionState.animate(
-                            CameraUpdateFactory.newCameraPosition(
-                                CameraPosition.fromLatLngZoom(center, 13f)
-                            )
-                        )
-                    }
-                },
-                onFailure = { error ->
-                    Log.e("MapScreen", "Fehler beim Berechnen der Route", error)
-                    routeError = error.message ?: "Unbekannter Fehler"
-                    isLoadingRoute = false
-                }
-            )
-        }
-    }
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
@@ -266,6 +222,56 @@ fun MapScreen(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.fromLatLngZoom(it, 15f)
                         )
+                    )
+                }
+            }
+            
+            // Hilfsfunktion zum Berechnen einer Route
+            fun calculateRouteToDestination(
+                origin: LatLng,
+                destination: KuladigObject,
+                mode: TravelMode
+            ) {
+                if (directionsService == null) {
+                    routeError = "Directions Service nicht verfügbar"
+                    return
+                }
+                
+                isLoadingRoute = true
+                routeError = null
+                
+                coroutineScope.launch {
+                    val destinationLatLng = LatLng(destination.latitude, destination.longitude)
+                    val result = directionsService.getRoute(origin, destinationLatLng, mode)
+                    
+                    result.fold(
+                        onSuccess = { route ->
+                            val polylinePoints = directionsService.decodePolyline(route.overview_polyline.points)
+                            currentRoute = route
+                            routePolylinePoints = polylinePoints
+                            routeStartMarker = null // Reset nach erfolgreicher Berechnung
+                            isLoadingRoute = false
+                            
+                            // Kamera auf Route zentrieren
+                            if (route.legs.isNotEmpty()) {
+                                val start = route.legs.first().start_location
+                                val end = route.legs.first().end_location
+                                val center = LatLng(
+                                    (start.lat + end.lat) / 2,
+                                    (start.lng + end.lng) / 2
+                                )
+                                cameraPositionState.animate(
+                                    CameraUpdateFactory.newCameraPosition(
+                                        CameraPosition.fromLatLngZoom(center, 13f)
+                                    )
+                                )
+                            }
+                        },
+                        onFailure = { error ->
+                            Log.e("MapScreen", "Fehler beim Berechnen der Route", error)
+                            routeError = error.message ?: "Unbekannter Fehler"
+                            isLoadingRoute = false
+                        }
                     )
                 }
             }
@@ -413,7 +419,7 @@ fun MapScreen(
                             fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
                         )
                         Text(
-                            text = "Start: ${routeStartMarker.name}",
+                            text = "Start: ${routeStartMarker?.name ?: ""}",
                             modifier = Modifier.padding(top = 4.dp)
                         )
                         Spacer(modifier = Modifier.height(8.dp))

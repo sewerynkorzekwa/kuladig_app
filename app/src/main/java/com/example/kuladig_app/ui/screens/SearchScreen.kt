@@ -14,7 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Directions
+import androidx.compose.material.icons.filled.Navigation
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -282,7 +282,7 @@ fun ObjectItemCard(
                 }
                 IconButton(onClick = { showTravelModeDialog = true }) {
                     Icon(
-                        imageVector = Icons.Default.Directions,
+                        imageVector = Icons.Default.Navigation,
                         contentDescription = "Route anzeigen"
                     )
                 }
