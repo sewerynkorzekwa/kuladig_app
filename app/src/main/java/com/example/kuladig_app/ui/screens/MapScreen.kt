@@ -13,7 +13,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,14 +31,14 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun MapScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val application = context.applicationContext as KuladigApplication
     val repository = remember { application.repository }
-    val scope = rememberCoroutineScope()
     
     val fusedLocationClient: FusedLocationProviderClient = remember {
         LocationServices.getFusedLocationProviderClient(context)
@@ -92,10 +91,17 @@ fun MapScreen(modifier: Modifier = Modifier) {
         }
     }
 
-    // Lade KuladigObjects aus der Datenbank
+    // Lade KuladigObjects aus der Datenbank - nur einmal beim ersten Render
     LaunchedEffect(Unit) {
-        scope.launch {
-            kuladigObjects = repository.getAllObjects()
+        kuladigObjects = withContext(Dispatchers.IO) {
+            repository.getAllObjects()
+        }
+    }
+
+    // Memoize Marker-Positionen um unnötige Recompositionen zu vermeiden
+    val markerPositions = remember(kuladigObjects) {
+        kuladigObjects.associate { obj ->
+            obj.id to LatLng(obj.latitude, obj.longitude)
         }
     }
 
@@ -137,10 +143,14 @@ fun MapScreen(modifier: Modifier = Modifier) {
                     )
                 }
                 
-                // Marker für alle KuladigObjects
+                // Marker mit memoized Positionen - nur bei Änderung der kuladigObjects neu erstellt
                 kuladigObjects.forEach { obj ->
+                    val position = markerPositions[obj.id] ?: return@forEach
+                    
                     Marker(
-                        state = MarkerState(position = LatLng(obj.latitude, obj.longitude)),
+                        state = remember(obj.id, position) { 
+                            MarkerState(position = position) 
+                        },
                         title = obj.name,
                         snippet = obj.beschreibung,
                         onClick = {
