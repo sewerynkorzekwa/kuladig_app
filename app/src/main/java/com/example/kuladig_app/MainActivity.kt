@@ -108,7 +108,7 @@ fun Kuladig_appApp() {
                             onRouteRequestHandled = { routeRequest = null }
                         )
                     }
-                    AppDestinations.FAVORITES -> {
+                    AppDestinations.VR -> {
                         VRScreen(
                             modifier = Modifier.padding(innerPadding)
                         )
@@ -130,7 +130,7 @@ enum class AppDestinations(
     val icon: ImageVector,
 ) {
     KARTE("Karten", Icons.Default.LocationOn),
-    FAVORITES("VR", Icons.Default.ViewInAr),
+    VR("VR", Icons.Default.ViewInAr),
     PROFILE("Profile", Icons.Default.AccountBox),
 }
 
