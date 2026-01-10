@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -59,7 +59,7 @@ fun Kuladig_appApp() {
                 item(
                     icon = {
                         Icon(
-                            it.icon,
+                            imageVector = it.icon,
                             contentDescription = it.label
                         )
                     },
@@ -109,7 +109,7 @@ fun Kuladig_appApp() {
                     }
                     AppDestinations.FAVORITES -> {
                         Greeting(
-                            name = "Favorites",
+                            name = "VR",
                             modifier = Modifier.padding(innerPadding)
                         )
                     }
@@ -130,7 +130,7 @@ enum class AppDestinations(
     val icon: ImageVector,
 ) {
     KARTE("Karten", Icons.Default.LocationOn),
-    FAVORITES("Favorites", Icons.Default.Favorite),
+    FAVORITES("VR", Icons.Default.ViewInAr),
     PROFILE("Profile", Icons.Default.AccountBox),
 }
 
