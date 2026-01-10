@@ -1,15 +1,31 @@
 package com.example.kuladig_app.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,9 +34,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kuladig_app.data.model.VRObject
 import dev.romainguy.kotlin.math.Float3
 import io.github.sceneview.Scene
 import io.github.sceneview.node.ModelNode
@@ -39,28 +58,180 @@ enum class VRTab(val title: String) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VRScreen(modifier: Modifier = Modifier) {
-    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
+    var selectedObject by rememberSaveable { mutableStateOf<VRObject?>(null) }
     
-    Column(modifier = modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = selectedTabIndex) {
-            VRTab.entries.forEachIndexed { index, tab ->
-                Tab(
-                    selected = selectedTabIndex == index,
-                    onClick = { selectedTabIndex = index },
-                    text = { Text(tab.title) }
-                )
-            }
+    if (selectedObject == null) {
+        VRListScreen(
+            modifier = modifier,
+            onObjectSelected = { obj -> selectedObject = obj }
+        )
+    } else {
+        VRDetailScreen(
+            modifier = modifier,
+            vrObject = selectedObject!!,
+            onBackClick = { selectedObject = null }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun VRListScreen(
+    modifier: Modifier = Modifier,
+    onObjectSelected: (VRObject) -> Unit
+) {
+    val allObjects = remember { VRObject.getAllObjects() }
+    var searchQuery by remember { mutableStateOf("") }
+    
+    val filteredObjects = remember(allObjects, searchQuery) {
+        if (searchQuery.isBlank()) {
+            allObjects
+        } else {
+            allObjects.filter { it.title.contains(searchQuery, ignoreCase = true) }
         }
-        
-        when (selectedTabIndex) {
-            0 -> DescriptionTabContent()
-            1 -> VRContent()
+    }
+    
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text("VR") }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                placeholder = { Text("Suchen...") },
+                singleLine = true,
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Suchen"
+                    )
+                }
+            )
+            
+            if (filteredObjects.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = if (searchQuery.isBlank()) "Keine Objekte gefunden" else "Keine Ergebnisse für \"$searchQuery\""
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 8.dp, horizontal = 16.dp)
+                ) {
+                    items(filteredObjects) { obj ->
+                        VRObjectListItem(
+                            vrObject = obj,
+                            onClick = { onObjectSelected(obj) }
+                        )
+                    }
+                }
+            }
         }
     }
 }
 
 @Composable
-fun DescriptionTabContent(modifier: Modifier = Modifier) {
+fun VRObjectListItem(
+    vrObject: VRObject,
+    onClick: () -> Unit
+) {
+    ListItem(
+        headlineContent = {
+            Text(
+                text = vrObject.title,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        leadingContent = {
+            Icon(
+                imageVector = Icons.Default.ViewInAr,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp)
+            )
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun VRDetailScreen(
+    modifier: Modifier = Modifier,
+    vrObject: VRObject,
+    onBackClick: () -> Unit
+) {
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
+    
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text(vrObject.title) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Zurück"
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            TabRow(selectedTabIndex = selectedTabIndex) {
+                VRTab.entries.forEachIndexed { index, tab ->
+                    Tab(
+                        selected = selectedTabIndex == index,
+                        onClick = { selectedTabIndex = index },
+                        text = { Text(tab.title) }
+                    )
+                }
+            }
+            
+            when (selectedTabIndex) {
+                0 -> DescriptionTabContent(
+                    description = vrObject.description,
+                    modifier = Modifier.fillMaxSize()
+                )
+                1 -> VRContent(
+                    glbFileName = vrObject.glbFileName,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun DescriptionTabContent(
+    description: String,
+    modifier: Modifier = Modifier
+) {
     val scrollState = rememberScrollState()
     
     Column(
@@ -69,23 +240,24 @@ fun DescriptionTabContent(modifier: Modifier = Modifier) {
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        Text(
-            text = "Die Cäsar-Statue im Louvre zeigt Gaius Julius Caesar, den berühmten römischen Feldherrn und Staatsmann. Sie stammt aus der römischen Kaiserzeit (1. Jh. v. Chr./n. Chr.) und ist für ihren realistischen Stil bekannt: markante Gesichtszüge, hoher Haaransatz und ein ernsthafter Ausdruck. Die Statue betont Cäsars Macht, Autorität und politische Bedeutung und gilt als eines der bekanntesten Porträts des römischen Altertums."
-        )
+        Text(text = description)
     }
 }
 
 @Composable
-fun VRContent(modifier: Modifier = Modifier) {
+fun VRContent(
+    glbFileName: String,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val engine = rememberEngine()
     val modelLoader = rememberModelLoader(engine)
     var modelInstance by remember { mutableStateOf<io.github.sceneview.model.ModelInstance?>(null) }
     
-    LaunchedEffect(Unit) {
+    LaunchedEffect(glbFileName) {
         try {
-            Log.d("VRScreen", "Loading model cesar.glb...")
-            modelInstance = modelLoader.createModelInstance("cesar.glb")
+            Log.d("VRScreen", "Loading model $glbFileName...")
+            modelInstance = modelLoader.createModelInstance(glbFileName)
             Log.d("VRScreen", "Model loaded: ${modelInstance != null}")
         } catch (e: Exception) {
             Log.e("VRScreen", "Error loading model", e)

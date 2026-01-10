@@ -74,19 +74,21 @@ fun Kuladig_appApp() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                TopAppBar(
-                    title = { Text(currentDestination.label) },
-                    actions = {
-                        if (currentDestination == AppDestinations.KARTE) {
-                            IconButton(onClick = { showSearchScreen = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = "Suchen"
-                                )
+                if (currentDestination != AppDestinations.VR) {
+                    TopAppBar(
+                        title = { Text(currentDestination.label) },
+                        actions = {
+                            if (currentDestination == AppDestinations.KARTE) {
+                                IconButton(onClick = { showSearchScreen = true }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "Suchen"
+                                    )
+                                }
                             }
                         }
-                    }
-                )
+                    )
+                }
             }
         ) { innerPadding ->
             if (showSearchScreen) {
