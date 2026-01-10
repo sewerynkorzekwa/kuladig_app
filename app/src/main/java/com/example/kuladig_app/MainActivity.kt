@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
 import com.example.kuladig_app.ui.screens.MapScreen
 import com.example.kuladig_app.ui.screens.SearchScreen
+import com.example.kuladig_app.ui.screens.VRScreen
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.TravelMode
 
@@ -108,8 +109,7 @@ fun Kuladig_appApp() {
                         )
                     }
                     AppDestinations.FAVORITES -> {
-                        Greeting(
-                            name = "VR",
+                        VRScreen(
                             modifier = Modifier.padding(innerPadding)
                         )
                     }

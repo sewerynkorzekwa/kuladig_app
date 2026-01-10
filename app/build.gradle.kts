@@ -73,6 +73,9 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     
+    // SceneView für 3D-Modell Viewer (2.2.0 kompatibel mit Kotlin 2.0)
+    implementation("io.github.sceneview:sceneview:2.2.0")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
