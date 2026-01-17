@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,8 +16,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -290,17 +293,6 @@ fun MapScreen(
         }
     }
 
-    // Verarbeite initialTour
-    LaunchedEffect(initialTour) {
-        initialTour?.let { (tour, stops) ->
-            currentTour = initialTour
-            currentTourStopIndex = 0
-            if (directionsService != null && userLocation != null && stops.isNotEmpty()) {
-                calculateTourRoute(directionsService, userLocation!!, stops, tour.travelMode)
-            }
-        }
-    }
-
     // Hilfsfunktion zum Berechnen einer Tour-Route
     fun calculateTourRoute(
         service: DirectionsService,
@@ -362,6 +354,17 @@ fun MapScreen(
                 Log.e("MapScreen", "Fehler beim Berechnen der Tour-Route", e)
                 routeError = e.message ?: "Unbekannter Fehler"
                 isLoadingRoute = false
+            }
+        }
+    }
+
+    // Verarbeite initialTour
+    LaunchedEffect(initialTour) {
+        initialTour?.let { (tour, stops) ->
+            currentTour = initialTour
+            currentTourStopIndex = 0
+            if (directionsService != null && userLocation != null && stops.isNotEmpty()) {
+                calculateTourRoute(directionsService, userLocation!!, stops, tour.travelMode)
             }
         }
     }

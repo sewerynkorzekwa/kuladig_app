@@ -2,6 +2,7 @@ package com.example.kuladig_app.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +43,7 @@ import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.model.TourStop
 import com.example.kuladig_app.ui.components.TourEditorBottomSheet
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 data class TourWithStops(
@@ -225,7 +227,9 @@ fun TourManagementScreen(
                             val (_, stops) = repository.getTourWithStops(t.id)
                             TourWithStops(t, stops)
                         }
-                        tours = toursWithStops
+                        withContext(Dispatchers.Main) {
+                            tours = toursWithStops
+                        }
                     } catch (e: Exception) {
                         android.util.Log.e("TourManagementScreen", "Fehler beim Speichern", e)
                     }
@@ -255,7 +259,9 @@ fun TourManagementScreen(
                                         val (_, stops) = repository.getTourWithStops(t.id)
                                         TourWithStops(t, stops)
                                     }
-                                    tours = toursWithStops
+                                    withContext(Dispatchers.Main) {
+                                        tours = toursWithStops
+                                    }
                                 } catch (e: Exception) {
                                     android.util.Log.e("TourManagementScreen", "Fehler beim Löschen", e)
                                 }
