@@ -71,6 +71,41 @@ class DirectionsService(private val apiKey: String) {
     }
     
     /**
+     * Berechnet eine Route mit mehreren Waypoints
+     * @param origin Startposition als LatLng
+     * @param waypoints Liste von Zwischenstopps
+     * @param destination Zielposition als LatLng
+     * @param mode Transportmodus (WALKING oder DRIVING)
+     * @return Route-Objekt oder null bei Fehler
+     */
+    suspend fun getRouteWithWaypoints(
+        origin: LatLng,
+        waypoints: List<LatLng>,
+        destination: LatLng,
+        mode: TravelMode
+    ): Result<Route> = withContext(Dispatchers.IO) {
+        try {
+            val originStr = "${origin.latitude},${origin.longitude}"
+            val destinationStr = "${destination.latitude},${destination.longitude}"
+            val waypointsStr = waypoints.joinToString("|") { "${it.latitude},${it.longitude}" }
+            val modeStr = when (mode) {
+                TravelMode.WALKING -> "walking"
+                TravelMode.DRIVING -> "driving"
+            }
+            
+            val response = api.getDirectionsWithWaypoints(originStr, destinationStr, waypointsStr, modeStr, apiKey)
+            
+            if (response.status == "OK" && response.routes.isNotEmpty()) {
+                Result.success(response.routes.first())
+            } else {
+                Result.failure(Exception("API Error: ${response.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
+    /**
      * Dekodiert eine encoded polyline zu einer Liste von LatLng-Punkten
      */
     fun decodePolyline(encodedPolyline: String): List<LatLng> {

@@ -30,8 +30,10 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
 import com.example.kuladig_app.ui.screens.MapScreen
 import com.example.kuladig_app.ui.screens.SearchScreen
+import com.example.kuladig_app.ui.screens.TourManagementScreen
 import com.example.kuladig_app.ui.screens.VRScreen
 import com.example.kuladig_app.data.model.KuladigObject
+import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.model.TravelMode
 
 class MainActivity : ComponentActivity() {
@@ -53,6 +55,7 @@ fun Kuladig_appApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.KARTE) }
     var showSearchScreen by rememberSaveable { mutableStateOf(false) }
     var routeRequest by rememberSaveable { mutableStateOf<Pair<KuladigObject, TravelMode>?>(null) }
+    var tourRequest by rememberSaveable { mutableStateOf<Pair<Tour, List<KuladigObject>>?>(null) }
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -107,7 +110,8 @@ fun Kuladig_appApp() {
                         MapScreen(
                             modifier = Modifier.padding(innerPadding),
                             initialRouteRequest = routeRequest,
-                            onRouteRequestHandled = { routeRequest = null }
+                            onRouteRequestHandled = { routeRequest = null },
+                            initialTour = tourRequest
                         )
                     }
                     AppDestinations.VR -> {
@@ -116,9 +120,12 @@ fun Kuladig_appApp() {
                         )
                     }
                     AppDestinations.PROFILE -> {
-                        Greeting(
-                            name = "Profile",
-                            modifier = Modifier.padding(innerPadding)
+                        TourManagementScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            onTourStart = { tour, stops ->
+                                tourRequest = Pair(tour, stops)
+                                currentDestination = AppDestinations.KARTE
+                            }
                         )
                     }
                 }

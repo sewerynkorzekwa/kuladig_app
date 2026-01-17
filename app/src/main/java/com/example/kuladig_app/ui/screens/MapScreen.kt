@@ -35,6 +35,7 @@ import com.example.kuladig_app.KuladigApplication
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.Route
 import com.example.kuladig_app.data.model.TravelMode
+import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.service.DirectionsService
 import com.example.kuladig_app.ui.components.MarkerInfoBottomSheet
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -64,7 +65,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 fun MapScreen(
     modifier: Modifier = Modifier,
     initialRouteRequest: Pair<KuladigObject, TravelMode>? = null,
-    onRouteRequestHandled: () -> Unit = {}
+    onRouteRequestHandled: () -> Unit = {},
+    initialTour: Pair<Tour, List<KuladigObject>>? = null
 ) {
     val context = LocalContext.current
     val application = context.applicationContext as KuladigApplication
@@ -111,6 +113,8 @@ fun MapScreen(
     var routeStartMarker by remember { mutableStateOf<KuladigObject?>(null) }
     var routeTravelMode by remember { mutableStateOf<TravelMode?>(null) }
     var isNavigating by remember { mutableStateOf(false) }
+    var currentTour by remember { mutableStateOf<Pair<Tour, List<KuladigObject>>?>(null) }
+    var currentTourStopIndex by remember { mutableStateOf(0) }
     var previousLocation by remember { mutableStateOf<Location?>(null) }
     var currentBearing by remember { mutableStateOf<Float?>(null) }
     
@@ -286,11 +290,94 @@ fun MapScreen(
         }
     }
 
+    // Verarbeite initialTour
+    LaunchedEffect(initialTour) {
+        initialTour?.let { (tour, stops) ->
+            currentTour = initialTour
+            currentTourStopIndex = 0
+            if (directionsService != null && userLocation != null && stops.isNotEmpty()) {
+                calculateTourRoute(directionsService, userLocation!!, stops, tour.travelMode)
+            }
+        }
+    }
+
+    // Hilfsfunktion zum Berechnen einer Tour-Route
+    fun calculateTourRoute(
+        service: DirectionsService,
+        origin: LatLng,
+        stops: List<KuladigObject>,
+        mode: TravelMode
+    ) {
+        if (stops.isEmpty()) return
+        
+        isLoadingRoute = true
+        routeError = null
+        
+        coroutineScope.launch {
+            try {
+                val waypoints = if (stops.size > 1) {
+                    stops.dropLast(1).map { LatLng(it.latitude, it.longitude) }
+                } else {
+                    emptyList()
+                }
+                val destination = LatLng(stops.last().latitude, stops.last().longitude)
+                
+                val result = if (waypoints.isNotEmpty()) {
+                    service.getRouteWithWaypoints(origin, waypoints, destination, mode)
+                } else {
+                    service.getRoute(origin, destination, mode)
+                }
+                
+                result.fold(
+                    onSuccess = { route ->
+                        val polylinePoints = service.decodePolyline(route.overview_polyline.points)
+                        currentRoute = route
+                        routePolylinePoints = polylinePoints
+                        isLoadingRoute = false
+                        
+                        // Kamera auf Route zentrieren
+                        if (route.legs.isNotEmpty()) {
+                            val firstLeg = route.legs.first()
+                            val lastLeg = route.legs.last()
+                            val start = firstLeg.start_location
+                            val end = lastLeg.end_location
+                            val center = LatLng(
+                                (start.lat + end.lat) / 2,
+                                (start.lng + end.lng) / 2
+                            )
+                            cameraPositionState.animate(
+                                CameraUpdateFactory.newCameraPosition(
+                                    CameraPosition.fromLatLngZoom(center, 13f)
+                                )
+                            )
+                        }
+                    },
+                    onFailure = { error ->
+                        Log.e("MapScreen", "Fehler beim Berechnen der Tour-Route", error)
+                        routeError = error.message ?: "Unbekannter Fehler"
+                        isLoadingRoute = false
+                    }
+                )
+            } catch (e: Exception) {
+                Log.e("MapScreen", "Fehler beim Berechnen der Tour-Route", e)
+                routeError = e.message ?: "Unbekannter Fehler"
+                isLoadingRoute = false
+            }
+        }
+    }
+
     // Memoize Marker-Positionen um unnötige Recompositionen zu vermeiden
     val markerPositions = remember(kuladigObjects) {
         kuladigObjects.associate { obj ->
             obj.id to LatLng(obj.latitude, obj.longitude)
         }
+    }
+    
+    // Tour-Stopp-Positionen
+    val tourStopPositions = remember(currentTour) {
+        currentTour?.let { (_, stops) ->
+            stops.mapIndexed { index, obj -> index to LatLng(obj.latitude, obj.longitude) }
+        } ?: emptyList()
     }
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -421,11 +508,28 @@ fun MapScreen(
                     )
                 }
                 
+                // Tour-Stopp-Marker mit Nummern
+                currentTour?.let { (tour, stops) ->
+                    stops.forEachIndexed { index, obj ->
+                        val position = LatLng(obj.latitude, obj.longitude)
+                        val isCurrentStop = index == currentTourStopIndex
+                        
+                        Marker(
+                            state = remember(obj.id, position, isCurrentStop) {
+                                MarkerState(position = position)
+                            },
+                            title = "${index + 1}. ${obj.name}",
+                            snippet = if (isCurrentStop) "Aktueller Stopp" else obj.beschreibung,
+                            alpha = if (isCurrentStop) 1f else 0.7f
+                        )
+                    }
+                }
+                
                 // Route-Polyline anzeigen
                 if (routePolylinePoints.isNotEmpty()) {
                     Polyline(
                         points = routePolylinePoints,
-                        color = Color.Blue,
+                        color = if (currentTour != null) Color.Green else Color.Blue,
                         width = 8f
                     )
                 }
@@ -435,6 +539,11 @@ fun MapScreen(
             currentRoute?.let { route ->
                 if (route.legs.isNotEmpty()) {
                     val leg = route.legs.first()
+                    val totalDistance = route.legs.sumOf { it.distance.value }
+                    val totalDuration = route.legs.sumOf { it.duration.value }
+                    val distanceText = if (totalDistance < 1000) "${totalDistance}m" else "${totalDistance / 1000.0}km"
+                    val durationText = "${totalDuration / 60} Min"
+                    
                     Card(
                         modifier = Modifier
                             .padding(16.dp)
@@ -443,9 +552,67 @@ fun MapScreen(
                         Column(
                             modifier = Modifier.padding(16.dp)
                         ) {
+                            if (currentTour != null) {
+                                val (tour, stops) = currentTour!!
+                                Text(
+                                    text = tour.name,
+                                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                                    fontSize = 18.sp
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "Stopp ${currentTourStopIndex + 1} von ${stops.size}",
+                                    fontSize = 14.sp
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    if (currentTourStopIndex > 0) {
+                                        OutlinedButton(
+                                            onClick = {
+                                                currentTourStopIndex--
+                                                // Berechne Route zum vorherigen Stopp
+                                                currentTour?.let { (tour, stops) ->
+                                                    if (directionsService != null && userLocation != null) {
+                                                        val targetStops = stops.subList(0, currentTourStopIndex + 1)
+                                                        calculateTourRoute(directionsService, userLocation!!, targetStops, tour.travelMode)
+                                                    }
+                                                }
+                                            },
+                                            modifier = Modifier.weight(1f)
+                                        ) {
+                                            Text("Vorheriger")
+                                        }
+                                    }
+                                    if (currentTourStopIndex < stops.size - 1) {
+                                        Button(
+                                            onClick = {
+                                                currentTourStopIndex++
+                                                // Berechne Route zum nächsten Stopp
+                                                currentTour?.let { (tour, stops) ->
+                                                    if (directionsService != null && userLocation != null) {
+                                                        val targetStops = stops.subList(0, currentTourStopIndex + 1)
+                                                        calculateTourRoute(directionsService, userLocation!!, targetStops, tour.travelMode)
+                                                    }
+                                                }
+                                            },
+                                            modifier = Modifier.weight(1f)
+                                        ) {
+                                            Text("Nächster")
+                                        }
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
                             Row {
                                 Text(
-                                    text = "Route: ${leg.distance.text} • ${leg.duration.text}",
+                                    text = if (currentTour != null) {
+                                        "Gesamt: $distanceText • $durationText"
+                                    } else {
+                                        "Route: ${leg.distance.text} • ${leg.duration.text}"
+                                    },
                                     modifier = Modifier.weight(1f)
                                 )
                                 IconButton(onClick = {
@@ -456,6 +623,8 @@ fun MapScreen(
                                     routeTravelMode = null
                                     isNavigating = false
                                     currentBearing = null
+                                    currentTour = null
+                                    currentTourStopIndex = 0
                                 }) {
                                     androidx.compose.material3.Icon(
                                         imageVector = Icons.Default.Close,
@@ -559,7 +728,13 @@ fun MapScreen(
                         routeTravelMode = mode
                         // Warte auf Zielauswahl
                     },
-                    hasActiveRoute = currentRoute != null
+                    hasActiveRoute = currentRoute != null,
+                    onAddToTour = { obj ->
+                        showBottomSheet = false
+                        // TODO: Navigate to Tour Management or show dialog
+                        // For now, just show a message
+                        routeError = "Zu Tour hinzufügen: ${obj.name} (Feature in Entwicklung)"
+                    }
                 )
             }
         }

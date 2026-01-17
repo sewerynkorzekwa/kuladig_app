@@ -12,5 +12,14 @@ interface DirectionsApi {
         @Query("mode") mode: String,
         @Query("key") apiKey: String
     ): DirectionsResponse
+
+    @GET("directions/json")
+    suspend fun getDirectionsWithWaypoints(
+        @Query("origin") origin: String,
+        @Query("destination") destination: String,
+        @Query("waypoints") waypoints: String,
+        @Query("mode") mode: String,
+        @Query("key") apiKey: String
+    ): DirectionsResponse
 }
 

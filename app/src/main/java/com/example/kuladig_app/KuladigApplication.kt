@@ -7,6 +7,8 @@ import androidx.room.Room
 import com.example.kuladig_app.data.dao.KuladigDao
 import com.example.kuladig_app.data.dao.KuladigObjectProjectCrossRefDao
 import com.example.kuladig_app.data.dao.ProjectDao
+import com.example.kuladig_app.data.dao.TourDao
+import com.example.kuladig_app.data.dao.TourStopDao
 import com.example.kuladig_app.data.database.KuladigDatabase
 import com.example.kuladig_app.data.repository.KuladigRepository
 import com.example.kuladig_app.data.service.JsonImportService
@@ -32,7 +34,9 @@ class KuladigApplication : Application() {
         KuladigRepository(
             kuladigDao = database.kuladigDao(),
             projectDao = database.projectDao(),
-            crossRefDao = database.kuladigObjectProjectCrossRefDao()
+            crossRefDao = database.kuladigObjectProjectCrossRefDao(),
+            tourDao = database.tourDao(),
+            tourStopDao = database.tourStopDao()
         )
     }
 

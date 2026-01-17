@@ -41,6 +41,7 @@ fun MarkerInfoBottomSheet(
     onRouteRequest: (KuladigObject, TravelMode) -> Unit = { _, _ -> },
     onRouteFromHere: (KuladigObject, TravelMode) -> Unit = { _, _ -> },
     hasActiveRoute: Boolean = false,
+    onAddToTour: (KuladigObject) -> Unit = { },
     modifier: Modifier = Modifier
 ) {
     if (kuladigObject == null) return
@@ -110,6 +111,20 @@ fun MarkerInfoBottomSheet(
             )
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedButton(
+                onClick = { onAddToTour(kuladigObject) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null,
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text("Zu Tour hinzufügen")
+            }
 
             if (hasActiveRoute) {
                 OutlinedButton(
