@@ -39,6 +39,11 @@ import com.example.kuladig_app.data.service.DirectionsService
 import com.example.kuladig_app.ui.components.MarkerInfoBottomSheet
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.Priority
+import androidx.compose.runtime.DisposableEffect
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -105,6 +110,70 @@ fun MapScreen(
     var routeError by remember { mutableStateOf<String?>(null) }
     var routeStartMarker by remember { mutableStateOf<KuladigObject?>(null) }
     var routeTravelMode by remember { mutableStateOf<TravelMode?>(null) }
+    var isNavigating by remember { mutableStateOf(false) }
+    var previousLocation by remember { mutableStateOf<Location?>(null) }
+    var currentBearing by remember { mutableStateOf<Float?>(null) }
+    
+    // Kamera-State außerhalb des else-Blocks definieren, damit es überall verfügbar ist
+    val cameraPositionState = rememberCameraPositionState {
+        position = userLocation?.let {
+            CameraPosition.fromLatLngZoom(it, 15f)
+        } ?: CameraPosition.fromLatLngZoom(
+            LatLng(52.5200, 13.4050), // Berlin als Fallback
+            10f
+        )
+    }
+    
+    // LocationRequest mit hoher Genauigkeit für Echtzeit-Navigation
+    val locationRequest = remember {
+        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000)
+            .setMinUpdateIntervalMillis(1000)
+            .setMaxUpdateDelayMillis(5000)
+            .setSmallestDisplacement(5f)
+            .build()
+    }
+    
+    // LocationCallback für kontinuierliche Positionsupdates
+    val locationCallback = remember {
+        object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                val location = result.lastLocation ?: return
+                
+                // Filtere ungenaue Positionen (Genauigkeit < 20 Meter)
+                if (location.accuracy > 20f) {
+                    Log.d("MapScreen", "Position zu ungenau: ${location.accuracy}m")
+                    return
+                }
+                
+                val newLatLng = LatLng(location.latitude, location.longitude)
+                
+                // Berechne Bearing wenn vorherige Position vorhanden
+                previousLocation?.let { prev ->
+                    val bearing = prev.bearingTo(location)
+                    currentBearing = bearing
+                }
+                
+                // Aktualisiere User-Location
+                userLocation = newLatLng
+                previousLocation = location
+                
+                // Navigation-Modus: Kamera folgt Position
+                if (isNavigating && currentRoute != null) {
+                    val bearing = currentBearing ?: 0f
+                    val cameraPosition = CameraPosition.Builder()
+                        .target(newLatLng)
+                        .zoom(17f)
+                        .bearing(bearing)
+                        .tilt(45f) // Tilt für bessere Navigation-Ansicht
+                        .build()
+                    
+                    cameraPositionState.animate(
+                        CameraUpdateFactory.newCameraPosition(cameraPosition)
+                    )
+                }
+            }
+        }
+    }
     
     val coroutineScope = rememberCoroutineScope()
     
@@ -116,16 +185,28 @@ fun MapScreen(
                 permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
     }
 
-    LaunchedEffect(hasLocationPermission) {
+    // Lifecycle-Management für Location-Updates
+    DisposableEffect(hasLocationPermission) {
         if (hasLocationPermission) {
             try {
+                // Starte kontinuierliche Location-Updates
+                fusedLocationClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    context.mainLooper
+                )
+                
+                // Hole auch einmalige letzte Position für sofortige Anzeige
                 fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                     location?.let {
-                        userLocation = LatLng(it.latitude, it.longitude)
+                        if (it.accuracy <= 20f) {
+                            userLocation = LatLng(it.latitude, it.longitude)
+                            previousLocation = it
+                        }
                     }
                 }
             } catch (e: SecurityException) {
-                // Permission wurde widerrufen
+                Log.e("MapScreen", "SecurityException beim Starten der Location-Updates", e)
                 hasLocationPermission = false
             }
         } else {
@@ -136,6 +217,17 @@ fun MapScreen(
                 )
             )
         }
+        
+        onDispose {
+            // Stoppe Location-Updates wenn Composable zerstört wird
+            if (hasLocationPermission) {
+                try {
+                    fusedLocationClient.removeLocationUpdates(locationCallback)
+                } catch (e: SecurityException) {
+                    Log.e("MapScreen", "SecurityException beim Stoppen der Location-Updates", e)
+                }
+            }
+        }
     }
 
     // Lade KuladigObjects aus der Datenbank - nur einmal beim ersten Render
@@ -143,16 +235,6 @@ fun MapScreen(
         kuladigObjects = withContext(Dispatchers.IO) {
             repository.getAllObjects()
         }
-    }
-    
-    // Kamera-State außerhalb des else-Blocks definieren, damit es überall verfügbar ist
-    val cameraPositionState = rememberCameraPositionState {
-        position = userLocation?.let {
-            CameraPosition.fromLatLngZoom(it, 15f)
-        } ?: CameraPosition.fromLatLngZoom(
-            LatLng(52.5200, 13.4050), // Berlin als Fallback
-            10f
-        )
     }
     
     // Verarbeite initialRouteRequest von SearchScreen
@@ -217,11 +299,27 @@ fun MapScreen(
                 modifier = Modifier.align(Alignment.Center)
             )
         } else {
+            // Aktiviere/Deaktiviere Navigation-Modus basierend auf aktiver Route
+            LaunchedEffect(currentRoute) {
+                isNavigating = currentRoute != null
+                if (!isNavigating) {
+                    // Zurück zur normalen Ansicht wenn keine Route aktiv
+                    userLocation?.let {
+                        cameraPositionState.animate(
+                            CameraUpdateFactory.newCameraPosition(
+                                CameraPosition.fromLatLngZoom(it, 15f)
+                            )
+                        )
+                    }
+                }
+            }
+            
+            // Initiale Kamera-Position nur wenn nicht im Navigation-Modus
             LaunchedEffect(userLocation) {
-                userLocation?.let {
+                if (!isNavigating && userLocation != null) {
                     cameraPositionState.animate(
                         CameraUpdateFactory.newCameraPosition(
-                            CameraPosition.fromLatLngZoom(it, 15f)
+                            CameraPosition.fromLatLngZoom(userLocation!!, 15f)
                         )
                     )
                 }
@@ -354,6 +452,8 @@ fun MapScreen(
                                     routeError = null
                                     routeStartMarker = null
                                     routeTravelMode = null
+                                    isNavigating = false
+                                    currentBearing = null
                                 }) {
                                     androidx.compose.material3.Icon(
                                         imageVector = Icons.Default.Close,

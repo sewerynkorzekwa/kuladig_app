@@ -4,30 +4,30 @@ overview: Implementierung einer kontinuierlichen GPS-Positionsverfolgung mit Ech
 todos:
   - id: location-request
     content: LocationRequest mit hoher Genauigkeit und Update-Intervallen erstellen
-    status: pending
+    status: completed
   - id: location-callback
     content: LocationCallback implementieren für kontinuierliche Positionsupdates
-    status: pending
+    status: completed
     dependencies:
       - location-request
   - id: lifecycle-management
     content: Lifecycle-Management für Location-Updates (starten/stoppen) implementieren
-    status: pending
+    status: completed
     dependencies:
       - location-callback
   - id: navigation-mode
     content: Navigation-Modus mit Kamera-Nachführung während aktiver Route implementieren
-    status: pending
+    status: completed
     dependencies:
       - location-callback
   - id: bearing-calculation
     content: Bewegungsrichtung (Bearing) berechnen und für Navigation-Ansicht verwenden
-    status: pending
+    status: completed
     dependencies:
       - navigation-mode
   - id: error-handling
     content: Fehlerbehandlung und Position-Filterung (Genauigkeit) implementieren
-    status: pending
+    status: completed
     dependencies:
       - location-callback
 ---
