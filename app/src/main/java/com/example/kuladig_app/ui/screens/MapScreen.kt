@@ -126,12 +126,13 @@ fun MapScreen(
     
     // LocationRequest mit hoher Genauigkeit für Echtzeit-Navigation
     val locationRequest = remember {
-        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000)
-            .setMinUpdateIntervalMillis(1000)
-            .setMaxUpdateDelayMillis(5000)
-            .setSmallestDisplacement(5f)
+        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000L)
+            .setMinUpdateIntervalMillis(1000L)
+            .setMaxUpdateDelayMillis(5000L)
             .build()
     }
+    
+    val coroutineScope = rememberCoroutineScope()
     
     // LocationCallback für kontinuierliche Positionsupdates
     val locationCallback = remember {
@@ -167,15 +168,16 @@ fun MapScreen(
                         .tilt(45f) // Tilt für bessere Navigation-Ansicht
                         .build()
                     
-                    cameraPositionState.animate(
-                        CameraUpdateFactory.newCameraPosition(cameraPosition)
-                    )
+                    // animate() ist eine suspend-Funktion, muss in Coroutine aufgerufen werden
+                    coroutineScope.launch {
+                        cameraPositionState.animate(
+                            CameraUpdateFactory.newCameraPosition(cameraPosition)
+                        )
+                    }
                 }
             }
         }
     }
-    
-    val coroutineScope = rememberCoroutineScope()
     
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
