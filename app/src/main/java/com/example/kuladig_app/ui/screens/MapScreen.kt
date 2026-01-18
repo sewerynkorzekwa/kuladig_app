@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -39,10 +40,12 @@ import com.example.kuladig_app.KuladigApplication
 import com.example.kuladig_app.data.model.ElevationProfile
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.Route
+import com.example.kuladig_app.data.model.SignalQuality
 import com.example.kuladig_app.data.model.TravelMode
 import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.service.DirectionsService
 import com.example.kuladig_app.data.service.ElevationService
+import com.example.kuladig_app.data.service.LocationValidator
 import com.example.kuladig_app.ui.components.ElevationProfileChart
 import com.example.kuladig_app.ui.components.MarkerInfoBottomSheet
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -141,6 +144,11 @@ fun MapScreen(
     var currentTourStopIndex by remember { mutableStateOf(0) }
     var previousLocation by remember { mutableStateOf<Location?>(null) }
     var currentBearing by remember { mutableStateOf<Float?>(null) }
+    var locationHistory by remember { mutableStateOf<List<Location>>(emptyList()) }
+    var currentSignalQuality by remember { mutableStateOf<SignalQuality?>(null) }
+    
+    // LocationValidator-Instanz
+    val locationValidator = remember { LocationValidator() }
     
     // Kamera-State außerhalb des else-Blocks definieren, damit es überall verfügbar ist
     val cameraPositionState = rememberCameraPositionState {
@@ -152,27 +160,67 @@ fun MapScreen(
         )
     }
     
-    // LocationRequest mit hoher Genauigkeit für Echtzeit-Navigation
-    val locationRequest = remember {
-        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000L)
-            .setMinUpdateIntervalMillis(1000L)
-            .setMaxUpdateDelayMillis(5000L)
+    // Adaptive LocationRequest-Konfiguration basierend auf Kontext
+    val locationRequest = remember(isNavigating) {
+        val accuracyProfile = if (isNavigating) {
+            LocationValidator.AccuracyProfile.NAVIGATION
+        } else {
+            LocationValidator.AccuracyProfile.NORMAL
+        }
+        
+        // Konfiguriere Update-Intervalle basierend auf Profil
+        val interval = when (accuracyProfile) {
+            LocationValidator.AccuracyProfile.NAVIGATION -> 2000L  // 2 Sekunden für Navigation
+            LocationValidator.AccuracyProfile.NORMAL -> 5000L     // 5 Sekunden für normale Nutzung
+            LocationValidator.AccuracyProfile.BATTERY -> 10000L   // 10 Sekunden für Batterie-Sparmodus
+        }
+        
+        val minInterval = when (accuracyProfile) {
+            LocationValidator.AccuracyProfile.NAVIGATION -> 1000L
+            LocationValidator.AccuracyProfile.NORMAL -> 2000L
+            LocationValidator.AccuracyProfile.BATTERY -> 5000L
+        }
+        
+        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, interval)
+            .setMinUpdateIntervalMillis(minInterval)
+            .setMaxUpdateDelayMillis(interval * 2)
+            .setWaitForAccurateLocation(true)  // Warte auf genaue Position für initiale Lokalisierung
             .build()
     }
     
     val coroutineScope = rememberCoroutineScope()
     
-    // LocationCallback für kontinuierliche Positionsupdates
-    val locationCallback = remember {
+    // LocationCallback für kontinuierliche Positionsupdates mit erweiterter Validierung
+    val locationCallback = remember(locationValidator, isNavigating) {
         object : LocationCallback() {
             override fun onLocationResult(result: LocationResult) {
                 val location = result.lastLocation ?: return
                 
-                // Filtere ungenaue Positionen (Genauigkeit < 20 Meter)
-                if (location.accuracy > 20f) {
-                    Log.d("MapScreen", "Position zu ungenau: ${location.accuracy}m")
+                // Bestimme Genauigkeitsprofil basierend auf Kontext
+                val accuracyProfile = if (isNavigating) {
+                    LocationValidator.AccuracyProfile.NAVIGATION
+                } else {
+                    LocationValidator.AccuracyProfile.NORMAL
+                }
+                
+                // Validiere Location mit erweiterten Checks
+                val validationResult = locationValidator.validateLocation(
+                    location = location,
+                    previousLocation = previousLocation,
+                    accuracyProfile = accuracyProfile
+                )
+                
+                // Wenn Location ungültig, logge Grund und ignoriere
+                if (!validationResult.isValid) {
+                    Log.d("MapScreen", "Location ungültig: ${validationResult.reason}, Genauigkeit: ${location.accuracy}m")
                     return
                 }
+                
+                // Aktualisiere Location-Historie (max. 10 Einträge für Signalqualitätsberechnung)
+                locationHistory = (locationHistory + location).takeLast(10)
+                
+                // Berechne aktuelle Signalqualität
+                currentSignalQuality = locationValidator.calculateSignalQuality(location, locationHistory)
                 
                 val newLatLng = LatLng(location.latitude, location.longitude)
                 
@@ -803,6 +851,40 @@ fun MapScreen(
                                 Text("OK")
                             }
                         }
+                    }
+                }
+            }
+            
+            // Signalqualitäts-Anzeige (oben rechts)
+            currentSignalQuality?.let { quality ->
+                Card(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        val (color, text) = when (quality) {
+                            SignalQuality.EXCELLENT -> Color(0xFF4CAF50) to "Exzellent" // Grün
+                            SignalQuality.GOOD -> Color(0xFF8BC34A) to "Gut" // Hellgrün
+                            SignalQuality.FAIR -> Color(0xFFFFC107) to "Mittel" // Gelb
+                            SignalQuality.POOR -> Color(0xFFFF5722) to "Schlecht" // Orange
+                        }
+                        
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            contentDescription = "Signalqualität: $text",
+                            tint = color,
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Text(
+                            text = text,
+                            fontSize = 12.sp,
+                            color = color
+                        )
                     }
                 }
             }
