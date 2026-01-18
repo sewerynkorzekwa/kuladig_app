@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ViewInAr
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.kuladig_app.ui.theme.Kuladig_appTheme
+import com.example.kuladig_app.ui.screens.HomeScreen
 import com.example.kuladig_app.ui.screens.MapScreen
 import com.example.kuladig_app.ui.screens.SearchScreen
 import com.example.kuladig_app.ui.screens.TourManagementScreen
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
 @PreviewScreenSizes
 @Composable
 fun Kuladig_appApp() {
-    var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.KARTE) }
+    var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
     var showSearchScreen by rememberSaveable { mutableStateOf(false) }
     var routeRequest by rememberSaveable { mutableStateOf<Pair<KuladigObject, TravelMode>?>(null) }
     var tourRequest by rememberSaveable { mutableStateOf<Pair<Tour, List<KuladigObject>>?>(null) }
@@ -77,7 +79,7 @@ fun Kuladig_appApp() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                if (currentDestination != AppDestinations.VR) {
+                if (currentDestination != AppDestinations.VR && currentDestination != AppDestinations.HOME) {
                     TopAppBar(
                         title = { Text(currentDestination.label) },
                         actions = {
@@ -106,6 +108,28 @@ fun Kuladig_appApp() {
                 )
             } else {
                 when (currentDestination) {
+                    AppDestinations.HOME -> {
+                        HomeScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            onNavigateToMap = { currentDestination = AppDestinations.KARTE },
+                            onNavigateToVR = { currentDestination = AppDestinations.VR },
+                            onNavigateToTours = { currentDestination = AppDestinations.PROFILE },
+                            onNavigateToSearch = { showSearchScreen = true },
+                            onRouteRequest = { obj, mode ->
+                                routeRequest = Pair(obj, mode)
+                                currentDestination = AppDestinations.KARTE
+                            },
+                            onTourStart = { tour, stops ->
+                                tourRequest = Pair(tour, stops)
+                                currentDestination = AppDestinations.KARTE
+                            },
+                            onVRObjectSelected = { vrObject ->
+                                // TODO: Navigate to VR screen with selected object
+                                currentDestination = AppDestinations.VR
+                            },
+                            activeTour = tourRequest
+                        )
+                    }
                     AppDestinations.KARTE -> {
                         MapScreen(
                             modifier = Modifier.padding(innerPadding),
@@ -138,6 +162,7 @@ enum class AppDestinations(
     val label: String,
     val icon: ImageVector,
 ) {
+    HOME("Home", Icons.Default.Home),
     KARTE("Karten", Icons.Default.LocationOn),
     VR("VR", Icons.Default.ViewInAr),
     PROFILE("Profile", Icons.Default.AccountBox),
