@@ -4,20 +4,20 @@ overview: Implementierung von kubischen Bézier-Splines zur visuellen Glättung 
 todos:
   - id: bezier_util
     content: Erstelle BezierSplineUtil.kt mit kubischer Bézier-Spline-Berechnung und smoothPolyline() Funktion
-    status: pending
+    status: completed
   - id: directions_service
     content: Füge smoothPolyline() Methode zu DirectionsService hinzu als Wrapper für BezierSplineUtil
-    status: pending
+    status: completed
     dependencies:
       - bezier_util
   - id: mapscreen_integration
     content: Integriere Glättung in MapScreen.kt an allen Stellen wo routePolylinePoints gesetzt wird (Zeilen 263, 325, 440)
-    status: pending
+    status: completed
     dependencies:
       - directions_service
   - id: testing
     content: Teste Implementation mit verschiedenen Routentypen (kurz/lang, Kurven/gerade, Tour-Routen)
-    status: pending
+    status: completed
     dependencies:
       - mapscreen_integration
 ---

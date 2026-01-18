@@ -3,6 +3,7 @@ package com.example.kuladig_app.data.service
 import com.example.kuladig_app.data.model.DirectionsResponse
 import com.example.kuladig_app.data.model.Route
 import com.example.kuladig_app.data.model.TravelMode
+import com.example.kuladig_app.utils.BezierSplineUtil
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.PolyUtil
 import kotlinx.coroutines.Dispatchers
@@ -110,6 +111,20 @@ class DirectionsService(private val apiKey: String) {
      */
     fun decodePolyline(encodedPolyline: String): List<LatLng> {
         return PolyUtil.decode(encodedPolyline)
+    }
+    
+    /**
+     * Glättet eine Liste von LatLng-Punkten mit kubischen Bézier-Splines.
+     * 
+     * @param points Die ursprünglichen Punkte der Polyline
+     * @param segmentsPerCurve Anzahl der interpolierten Punkte pro Kurvensegment (Standard: 10)
+     * @return Liste von geglätteten LatLng-Punkten
+     */
+    fun smoothPolyline(
+        points: List<LatLng>,
+        segmentsPerCurve: Int = 10
+    ): List<LatLng> {
+        return BezierSplineUtil.smoothPolyline(points, segmentsPerCurve)
     }
 }
 

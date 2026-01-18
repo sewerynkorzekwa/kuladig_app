@@ -260,7 +260,8 @@ fun MapScreen(
                 
                 result.fold(
                     onSuccess = { route ->
-                        val polylinePoints = directionsService.decodePolyline(route.overview_polyline.points)
+                        val decodedPoints = directionsService.decodePolyline(route.overview_polyline.points)
+                        val polylinePoints = directionsService.smoothPolyline(decodedPoints)
                         currentRoute = route
                         routePolylinePoints = polylinePoints
                         isLoadingRoute = false
@@ -322,7 +323,8 @@ fun MapScreen(
                 
                 result.fold(
                     onSuccess = { route ->
-                        val polylinePoints = service.decodePolyline(route.overview_polyline.points)
+                        val decodedPoints = service.decodePolyline(route.overview_polyline.points)
+                        val polylinePoints = service.smoothPolyline(decodedPoints)
                         currentRoute = route
                         routePolylinePoints = polylinePoints
                         isLoadingRoute = false
@@ -437,7 +439,8 @@ fun MapScreen(
                     
                     result.fold(
                         onSuccess = { route ->
-                            val polylinePoints = directionsService.decodePolyline(route.overview_polyline.points)
+                            val decodedPoints = directionsService.decodePolyline(route.overview_polyline.points)
+                            val polylinePoints = directionsService.smoothPolyline(decodedPoints)
                             currentRoute = route
                             routePolylinePoints = polylinePoints
                             routeStartMarker = null // Reset nach erfolgreicher Berechnung
