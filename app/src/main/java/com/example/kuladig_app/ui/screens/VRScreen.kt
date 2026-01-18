@@ -1,6 +1,7 @@
 package com.example.kuladig_app.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -37,6 +39,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -65,7 +68,10 @@ import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
+import com.example.kuladig_app.ui.ar.ARRenderer
 import com.example.kuladig_app.data.model.VRObject
+import com.example.kuladig_app.ui.components.AudioPlayer
+import com.example.kuladig_app.ui.components.VideoPlayer
 import dev.romainguy.kotlin.math.Float3
 import io.github.sceneview.Scene
 import io.github.sceneview.node.ModelNode
@@ -243,6 +249,8 @@ fun VRDetailScreen(
             when (selectedTabIndex) {
                 0 -> DescriptionTabContent(
                     description = vrObject.description,
+                    audioFileName = vrObject.audioFileName,
+                    videoFileName = vrObject.videoFileName,
                     modifier = Modifier.fillMaxSize()
                 )
                 1 -> VRContent(
@@ -251,6 +259,7 @@ fun VRDetailScreen(
                 )
                 2 -> ARContent(
                     glbFileName = vrObject.glbFileName,
+                    vrObject = vrObject,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -261,6 +270,8 @@ fun VRDetailScreen(
 @Composable
 fun DescriptionTabContent(
     description: String,
+    audioFileName: String? = null,
+    videoFileName: String? = null,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -271,7 +282,36 @@ fun DescriptionTabContent(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        Text(text = description)
+        Text(text = description, modifier = Modifier.padding(bottom = 16.dp))
+        
+        if (audioFileName != null) {
+            Text(
+                text = "Audio:",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            AudioPlayer(
+                audioFileName = audioFileName,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .padding(bottom = 16.dp)
+            )
+        }
+        
+        if (videoFileName != null) {
+            Text(
+                text = "Video:",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            VideoPlayer(
+                videoFileName = videoFileName,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            )
+        }
     }
 }
 
@@ -356,6 +396,7 @@ fun VRContent(
 @Composable
 fun ARContent(
     glbFileName: String,
+    vrObject: VRObject? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -364,6 +405,8 @@ fun ARContent(
     ) }
     var arAvailable by remember { mutableStateOf<Boolean?>(null) }
     var arSession by remember { mutableStateOf<Session?>(null) }
+    var arRenderer by remember { mutableStateOf<ARRenderer?>(null) }
+    var selectedAnchor by remember { mutableStateOf<Anchor?>(null) }
     
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
@@ -400,11 +443,45 @@ fun ARContent(
                 val config = Config(session)
                 config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
                 config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
+                
+                // Enable Geospatial API
+                config.geospatialMode = Config.GeospatialMode.ENABLED
+                
                 session.configure(config)
                 arSession = session
-                Log.d("ARContent", "AR Session initialized")
+                
+                // Erstelle AR Renderer
+                val renderer = ARRenderer(context, glbFileName) { anchor ->
+                    Log.d("ARContent", "Anchor created: ${anchor.trackingState}")
+                    selectedAnchor = anchor // Markiere Anchor als ausgewählt für Info-Overlay
+                }
+                renderer.setSession(session)
+                arRenderer = renderer
+                
+                Log.d("ARContent", "AR Session initialized with Geospatial API")
             } catch (e: Exception) {
                 Log.e("ARContent", "Error initializing AR Session", e)
+            }
+        }
+    }
+    
+    // Erstelle Geospatial-Anker wenn Earth-Tracking verfügbar ist
+    LaunchedEffect(arSession, vrObject, arRenderer) {
+        if (arSession != null && arRenderer != null && vrObject != null) {
+            val obj = vrObject
+            if (obj.latitude != null && obj.longitude != null) {
+                // Warte auf Earth Tracking (max. 10 Sekunden)
+                var attempts = 0
+                while (attempts < 100 && arSession != null && arRenderer != null) {
+                    val earth = arSession?.earth
+                    if (earth?.trackingState == com.google.ar.core.TrackingState.TRACKING) {
+                        arRenderer?.createGeospatialAnchor(obj.latitude, obj.longitude)
+                        Log.d("ARContent", "Geospatial anchor created for ${obj.title} at (${obj.latitude}, ${obj.longitude})")
+                        break
+                    }
+                    kotlinx.coroutines.delay(100) // Warte 100ms zwischen Versuchen
+                    attempts++
+                }
             }
         }
     }
@@ -412,8 +489,10 @@ fun ARContent(
     // Cleanup AR Session
     DisposableEffect(arSession) {
         onDispose {
+            arRenderer?.clearAnchors()
             arSession?.close()
             arSession = null
+            arRenderer = null
         }
     }
     
@@ -442,15 +521,84 @@ fun ARContent(
             Text("Prüfe ARCore Verfügbarkeit...")
         }
     } else {
-        // AR View - wird später mit vollständiger Implementierung erweitert
-        AndroidView(
+        // AR View mit vollständiger Implementierung und Info-Overlay
+        Box(modifier = modifier.fillMaxSize()) {
+            AndroidView(
             factory = { ctx ->
                 GLSurfaceView(ctx).apply {
-                    // AR View wird hier erstellt
-                    // Vollständige AR-Implementierung mit Modell-Rendering folgt
+                    setEGLContextClientVersion(2)
+                    preserveEGLContextOnPause = true
+                    
+                    arRenderer?.let { renderer ->
+                        setRenderer(renderer)
+                        renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
+                        
+                        // Touch-Handler für Anchor-Platzierung
+                        setOnTouchListener { _, event ->
+                            if (event.action == MotionEvent.ACTION_DOWN) {
+                                val renderer = arRenderer
+                                if (renderer != null) {
+                                    val x = event.x
+                                    val y = event.y
+                                    renderer.handleTap(x, y)
+                                    true
+                                } else {
+                                    false
+                                }
+                            } else {
+                                false
+                            }
+                        }
+                    }
                 }
             },
-            modifier = modifier.fillMaxSize()
-        )
+            modifier = Modifier.fillMaxSize(),
+            update = { view ->
+                // Update renderer session if needed
+                arRenderer?.let { renderer ->
+                    if (view.renderer == null) {
+                        view.setRenderer(renderer)
+                        renderer.setSession(arSession)
+                    }
+                }
+            }
+            )
+            
+            // Info-Overlay für ausgewähltes AR-Objekt
+            if (selectedAnchor != null && vrObject != null) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .background(
+                            color = Color.Black.copy(alpha = 0.7f),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = vrObject.title,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        Text(
+                            text = vrObject.description.take(150) + if (vrObject.description.length > 150) "..." else "",
+                            color = Color.White,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        androidx.compose.material3.Button(
+                            onClick = { selectedAnchor = null },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Schließen")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
