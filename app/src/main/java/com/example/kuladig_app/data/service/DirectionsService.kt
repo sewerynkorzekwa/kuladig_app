@@ -1,7 +1,9 @@
 package com.example.kuladig_app.data.service
 
 import com.example.kuladig_app.data.model.DirectionsResponse
+import com.example.kuladig_app.data.model.ElevationProfile
 import com.example.kuladig_app.data.model.Route
+import com.example.kuladig_app.data.model.RouteWithElevation
 import com.example.kuladig_app.data.model.TravelMode
 import com.example.kuladig_app.utils.BezierSplineUtil
 import com.google.android.gms.maps.model.LatLng
@@ -16,6 +18,15 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 
 class DirectionsService(private val apiKey: String) {
+    // Optionaler ElevationService für Höhendaten
+    private var elevationService: ElevationService? = null
+    
+    /**
+     * Setzt den ElevationService für Höhendatenberechnung
+     */
+    fun setElevationService(elevationService: ElevationService) {
+        this.elevationService = elevationService
+    }
     private val baseUrl = "https://maps.googleapis.com/maps/api/"
     
     private val json = Json {
@@ -125,6 +136,68 @@ class DirectionsService(private val apiKey: String) {
         segmentsPerCurve: Int = 10
     ): List<LatLng> {
         return BezierSplineUtil.smoothPolyline(points, segmentsPerCurve)
+    }
+    
+    /**
+     * Berechnet eine Route mit Höhendaten
+     * @param origin Startposition als LatLng
+     * @param destination Zielposition als LatLng
+     * @param mode Transportmodus (WALKING oder DRIVING)
+     * @return RouteWithElevation mit Route und optionalem Höhenprofil
+     */
+    suspend fun getRouteWithElevation(
+        origin: LatLng,
+        destination: LatLng,
+        mode: TravelMode
+    ): Result<RouteWithElevation> = withContext(Dispatchers.IO) {
+        val routeResult = getRoute(origin, destination, mode)
+        
+        routeResult.fold(
+            onSuccess = { route ->
+                val elevationProfile = elevationService?.let { service ->
+                    val decodedPoints = decodePolyline(route.overview_polyline.points)
+                    val elevationResult = service.getElevationForRoutePoints(decodedPoints)
+                    elevationResult.getOrNull()
+                }
+                
+                Result.success(RouteWithElevation(route, elevationProfile))
+            },
+            onFailure = { error ->
+                Result.failure(error)
+            }
+        )
+    }
+    
+    /**
+     * Berechnet eine Route mit Waypoints und Höhendaten
+     * @param origin Startposition als LatLng
+     * @param waypoints Liste von Zwischenstopps
+     * @param destination Zielposition als LatLng
+     * @param mode Transportmodus (WALKING oder DRIVING)
+     * @return RouteWithElevation mit Route und optionalem Höhenprofil
+     */
+    suspend fun getRouteWithWaypointsAndElevation(
+        origin: LatLng,
+        waypoints: List<LatLng>,
+        destination: LatLng,
+        mode: TravelMode
+    ): Result<RouteWithElevation> = withContext(Dispatchers.IO) {
+        val routeResult = getRouteWithWaypoints(origin, waypoints, destination, mode)
+        
+        routeResult.fold(
+            onSuccess = { route ->
+                val elevationProfile = elevationService?.let { service ->
+                    val decodedPoints = decodePolyline(route.overview_polyline.points)
+                    val elevationResult = service.getElevationForRoutePoints(decodedPoints)
+                    elevationResult.getOrNull()
+                }
+                
+                Result.success(RouteWithElevation(route, elevationProfile))
+            },
+            onFailure = { error ->
+                Result.failure(error)
+            }
+        )
     }
 }
 

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
@@ -35,11 +36,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.example.kuladig_app.KuladigApplication
+import com.example.kuladig_app.data.model.ElevationProfile
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.Route
 import com.example.kuladig_app.data.model.TravelMode
 import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.service.DirectionsService
+import com.example.kuladig_app.data.service.ElevationService
+import com.example.kuladig_app.ui.components.ElevationProfileChart
 import com.example.kuladig_app.ui.components.MarkerInfoBottomSheet
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -59,6 +63,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import android.util.Log
@@ -88,6 +93,19 @@ fun MapScreen(
         if (apiKey.isNotEmpty()) DirectionsService(apiKey) else null
     }
     
+    val elevationService = remember(apiKey) {
+        if (apiKey.isNotEmpty()) ElevationService(apiKey) else null
+    }
+    
+    // Verbinde ElevationService mit DirectionsService
+    LaunchedEffect(directionsService, elevationService) {
+        directionsService?.let { ds ->
+            elevationService?.let { es ->
+                ds.setElevationService(es)
+            }
+        }
+    }
+    
     val fusedLocationClient: FusedLocationProviderClient = remember {
         LocationServices.getFusedLocationProviderClient(context)
     }
@@ -111,8 +129,11 @@ fun MapScreen(
     var showBottomSheet by remember { mutableStateOf(false) }
     var currentRoute by remember { mutableStateOf<Route?>(null) }
     var routePolylinePoints by remember { mutableStateOf<List<LatLng>>(emptyList()) }
+    var elevationProfile by remember { mutableStateOf<ElevationProfile?>(null) }
     var isLoadingRoute by remember { mutableStateOf(false) }
+    var isLoadingElevation by remember { mutableStateOf(false) }
     var routeError by remember { mutableStateOf<String?>(null) }
+    var showElevationProfile by remember { mutableStateOf(false) }
     var routeStartMarker by remember { mutableStateOf<KuladigObject?>(null) }
     var routeTravelMode by remember { mutableStateOf<TravelMode?>(null) }
     var isNavigating by remember { mutableStateOf(false) }
@@ -266,6 +287,26 @@ fun MapScreen(
                         routePolylinePoints = polylinePoints
                         isLoadingRoute = false
                         
+                        // Automatisch Höhendaten abrufen
+                        elevationService?.let { es ->
+                            isLoadingElevation = true
+                            coroutineScope.launch {
+                                val elevationResult = es.getElevationForRoutePoints(decodedPoints)
+                                elevationResult.fold(
+                                    onSuccess = { profile ->
+                                        elevationProfile = profile
+                                        isLoadingElevation = false
+                                    },
+                                    onFailure = { error ->
+                                        Log.e("MapScreen", "Fehler beim Abrufen der Höhendaten", error)
+                                        // Fehler wird ignoriert - Route wird trotzdem angezeigt
+                                        elevationProfile = null
+                                        isLoadingElevation = false
+                                    }
+                                )
+                            }
+                        }
+                        
                         // Kamera auf Route zentrieren
                         if (route.legs.isNotEmpty()) {
                             val start = route.legs.first().start_location
@@ -328,6 +369,25 @@ fun MapScreen(
                         currentRoute = route
                         routePolylinePoints = polylinePoints
                         isLoadingRoute = false
+                        
+                        // Automatisch Höhendaten abrufen
+                        elevationService?.let { es ->
+                            isLoadingElevation = true
+                            launch {
+                                val elevationResult = es.getElevationForRoutePoints(decodedPoints)
+                                elevationResult.fold(
+                                    onSuccess = { profile ->
+                                        elevationProfile = profile
+                                        isLoadingElevation = false
+                                    },
+                                    onFailure = { error ->
+                                        Log.e("MapScreen", "Fehler beim Abrufen der Höhendaten", error)
+                                        elevationProfile = null
+                                        isLoadingElevation = false
+                                    }
+                                )
+                            }
+                        }
                         
                         // Kamera auf Route zentrieren
                         if (route.legs.isNotEmpty()) {
@@ -445,6 +505,25 @@ fun MapScreen(
                             routePolylinePoints = polylinePoints
                             routeStartMarker = null // Reset nach erfolgreicher Berechnung
                             isLoadingRoute = false
+                            
+                            // Automatisch Höhendaten abrufen
+                            elevationService?.let { es ->
+                                isLoadingElevation = true
+                                launch {
+                                    val elevationResult = es.getElevationForRoutePoints(decodedPoints)
+                                    elevationResult.fold(
+                                        onSuccess = { profile ->
+                                            elevationProfile = profile
+                                            isLoadingElevation = false
+                                        },
+                                        onFailure = { error ->
+                                            Log.e("MapScreen", "Fehler beim Abrufen der Höhendaten", error)
+                                            elevationProfile = null
+                                            isLoadingElevation = false
+                                        }
+                                    )
+                                }
+                            }
                             
                             // Kamera auf Route zentrieren
                             if (route.legs.isNotEmpty()) {
@@ -624,6 +703,7 @@ fun MapScreen(
                                 IconButton(onClick = {
                                     currentRoute = null
                                     routePolylinePoints = emptyList()
+                                    elevationProfile = null
                                     routeError = null
                                     routeStartMarker = null
                                     routeTravelMode = null
@@ -631,10 +711,55 @@ fun MapScreen(
                                     currentBearing = null
                                     currentTour = null
                                     currentTourStopIndex = 0
+                                    showElevationProfile = false
                                 }) {
                                     androidx.compose.material3.Icon(
                                         imageVector = Icons.Default.Close,
                                         contentDescription = "Route schließen"
+                                    )
+                                }
+                            }
+                            
+                            // Höhenprofil anzeigen
+                            elevationProfile?.let { profile ->
+                                Spacer(modifier = Modifier.height(8.dp))
+                                HorizontalDivider()
+                                Spacer(modifier = Modifier.height(8.dp))
+                                
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "Höhenprofil",
+                                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                                        fontSize = 16.sp
+                                    )
+                                    TextButton(
+                                        onClick = { showElevationProfile = !showElevationProfile }
+                                    ) {
+                                        Text(if (showElevationProfile) "Einklappen" else "Aufklappen")
+                                    }
+                                }
+                                
+                                if (showElevationProfile) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    if (isLoadingElevation) {
+                                        Text("Höhendaten werden geladen...")
+                                    } else {
+                                        ElevationProfileChart(
+                                            profile = profile,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    }
+                                } else {
+                                    // Kompakte Statistik anzeigen
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = "Min: ${profile.minElevation.roundToInt()}m | Max: ${profile.maxElevation.roundToInt()}m | Anstieg: ${profile.totalAscent.roundToInt()}m",
+                                        fontSize = 12.sp,
+                                        color = androidx.compose.ui.graphics.Color.Gray
                                     )
                                 }
                             }

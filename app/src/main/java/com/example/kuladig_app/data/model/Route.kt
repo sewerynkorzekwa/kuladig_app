@@ -19,6 +19,15 @@ data class Route(
     val overview_polyline: OverviewPolyline
 )
 
+/**
+ * Erweiterte Route mit optionalem Höhenprofil
+ * Wrapper-Klasse, da elevationProfile nicht serialisiert werden kann
+ */
+data class RouteWithElevation(
+    val route: Route,
+    var elevationProfile: ElevationProfile? = null
+)
+
 @Serializable
 data class Leg(
     val distance: Distance,

@@ -4,35 +4,35 @@ overview: Integration der Google Elevation API zur automatischen Berechnung und 
 todos:
   - id: create-elevation-models
     content: Elevation Datenmodelle erstellen (ElevationResponse, ElevationResult, ElevationProfile, ElevationPoint)
-    status: pending
+    status: completed
   - id: create-elevation-api
     content: ElevationApi Retrofit-Interface definieren mit Path- und Locations-Endpoints
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-models
   - id: create-elevation-service
     content: ElevationService implementieren mit Methoden für Höhendatenabfrage und Sampling-Strategie
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-api
   - id: extend-route-model
     content: Route-Modell um optionales elevationProfile Feld erweitern
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-models
   - id: integrate-elevation-directions
     content: DirectionsService um ElevationService-Integration erweitern (optional getRouteWithElevation Methode)
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-service
   - id: create-elevation-chart
     content: ElevationProfileChart Compose-Komponente für grafische Höhenprofil-Darstellung erstellen
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-models
   - id: integrate-map-screen
     content: MapScreen um automatische Elevation-Berechnung nach Routenberechnung und UI-Integration erweitern
-    status: pending
+    status: completed
     dependencies:
       - create-elevation-service
       - create-elevation-chart
