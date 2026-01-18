@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,19 +33,35 @@ import com.example.kuladig_app.ui.theme.Kuladig_appTheme
 import com.example.kuladig_app.ui.screens.HomeScreen
 import com.example.kuladig_app.ui.screens.MapScreen
 import com.example.kuladig_app.ui.screens.SearchScreen
+import com.example.kuladig_app.ui.screens.SettingsScreen
 import com.example.kuladig_app.ui.screens.TourManagementScreen
 import com.example.kuladig_app.ui.screens.VRScreen
 import com.example.kuladig_app.data.model.KuladigObject
 import com.example.kuladig_app.data.model.Tour
 import com.example.kuladig_app.data.model.TravelMode
+import com.example.kuladig_app.data.PreferencesManager
+import com.example.kuladig_app.data.ThemeMode
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val preferencesManager = PreferencesManager(this)
         setContent {
-            Kuladig_appTheme {
-                Kuladig_appApp()
+            var themeMode by remember { mutableStateOf<ThemeMode>(ThemeMode.SYSTEM) }
+            
+            LaunchedEffect(Unit) {
+                themeMode = preferencesManager.getThemeMode()
+            }
+            
+            Kuladig_appTheme(themeMode = themeMode) {
+                Kuladig_appApp(
+                    onThemeModeChanged = { mode ->
+                        themeMode = mode
+                    }
+                )
             }
         }
     }
@@ -53,7 +70,9 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @PreviewScreenSizes
 @Composable
-fun Kuladig_appApp() {
+fun Kuladig_appApp(
+    onThemeModeChanged: (ThemeMode) -> Unit = {}
+) {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
     var showSearchScreen by rememberSaveable { mutableStateOf(false) }
     var routeRequest by rememberSaveable { mutableStateOf<Pair<KuladigObject, TravelMode>?>(null) }
@@ -79,7 +98,9 @@ fun Kuladig_appApp() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                if (currentDestination != AppDestinations.VR && currentDestination != AppDestinations.HOME) {
+                if (currentDestination != AppDestinations.VR && 
+                    currentDestination != AppDestinations.HOME &&
+                    currentDestination != AppDestinations.SETTINGS) {
                     TopAppBar(
                         title = { Text(currentDestination.label) },
                         actions = {
@@ -152,6 +173,12 @@ fun Kuladig_appApp() {
                             }
                         )
                     }
+                    AppDestinations.SETTINGS -> {
+                        SettingsScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            onThemeModeChanged = onThemeModeChanged
+                        )
+                    }
                 }
             }
         }
@@ -166,6 +193,7 @@ enum class AppDestinations(
     KARTE("Karten", Icons.Default.LocationOn),
     VR("VR", Icons.Default.ViewInAr),
     PROFILE("Profile", Icons.Default.AccountBox),
+    SETTINGS("Einstellungen", Icons.Default.Settings),
 }
 
 @Composable
@@ -179,7 +207,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Kuladig_appTheme {
+    Kuladig_appTheme(themeMode = ThemeMode.SYSTEM) {
         Greeting("Android")
     }
 }
