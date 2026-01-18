@@ -27,6 +27,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -39,6 +40,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.opengl.GLSurfaceView
+import android.view.MotionEvent
+import android.view.Surface
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.google.ar.core.Anchor
+import com.google.ar.core.ArCoreApk
+import com.google.ar.core.Config
+import com.google.ar.core.Frame
+import com.google.ar.core.HitResult
+import com.google.ar.core.Plane
+import com.google.ar.core.Session
+import com.google.ar.core.TrackingState
+import com.google.ar.core.exceptions.CameraNotAvailableException
+import com.google.ar.core.exceptions.UnavailableApkTooOldException
+import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException
+import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException
+import com.google.ar.core.exceptions.UnavailableSdkTooOldException
+import javax.microedition.khronos.egl.EGLConfig
+import javax.microedition.khronos.opengles.GL10
 import com.example.kuladig_app.data.model.VRObject
 import dev.romainguy.kotlin.math.Float3
 import io.github.sceneview.Scene
@@ -52,7 +78,8 @@ import io.github.sceneview.rememberNodes
 
 enum class VRTab(val title: String) {
     DESCRIPTION("Beschreibung"),
-    VR("VR")
+    VR("VR"),
+    AR("AR")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -222,6 +249,10 @@ fun VRDetailScreen(
                     glbFileName = vrObject.glbFileName,
                     modifier = Modifier.fillMaxSize()
                 )
+                2 -> ARContent(
+                    glbFileName = vrObject.glbFileName,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }
@@ -320,4 +351,106 @@ fun VRContent(
         mainLightNode = mainLightNode,
         childNodes = childNodes
     )
+}
+
+@Composable
+fun ARContent(
+    glbFileName: String,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    var hasCameraPermission by remember { mutableStateOf(
+        ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    ) }
+    var arAvailable by remember { mutableStateOf<Boolean?>(null) }
+    var arSession by remember { mutableStateOf<Session?>(null) }
+    
+    val cameraPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        hasCameraPermission = isGranted
+    }
+    
+    // Prüfe ARCore Verfügbarkeit
+    LaunchedEffect(context) {
+        try {
+            val availability = ArCoreApk.getInstance().checkAvailability(context)
+            arAvailable = when {
+                availability.isSupported -> true
+                else -> false
+            }
+        } catch (e: Exception) {
+            Log.e("ARContent", "Error checking ARCore availability", e)
+            arAvailable = false
+        }
+    }
+    
+    // Fordere Kamera-Permission an falls nicht vorhanden
+    LaunchedEffect(hasCameraPermission) {
+        if (!hasCameraPermission) {
+            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+    
+    // Initialisiere AR Session wenn Permission vorhanden
+    LaunchedEffect(hasCameraPermission, arAvailable) {
+        if (hasCameraPermission && arAvailable == true && arSession == null) {
+            try {
+                val session = Session(context)
+                val config = Config(session)
+                config.planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
+                config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
+                session.configure(config)
+                arSession = session
+                Log.d("ARContent", "AR Session initialized")
+            } catch (e: Exception) {
+                Log.e("ARContent", "Error initializing AR Session", e)
+            }
+        }
+    }
+    
+    // Cleanup AR Session
+    DisposableEffect(arSession) {
+        onDispose {
+            arSession?.close()
+            arSession = null
+        }
+    }
+    
+    if (!hasCameraPermission) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Kamera-Berechtigung erforderlich für AR")
+        }
+    } else if (arAvailable == false) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("ARCore nicht verfügbar")
+                Text("Bitte installieren Sie ARCore vom Play Store", modifier = Modifier.padding(top = 8.dp))
+            }
+        }
+    } else if (arAvailable == null) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Prüfe ARCore Verfügbarkeit...")
+        }
+    } else {
+        // AR View - wird später mit vollständiger Implementierung erweitert
+        AndroidView(
+            factory = { ctx ->
+                GLSurfaceView(ctx).apply {
+                    // AR View wird hier erstellt
+                    // Vollständige AR-Implementierung mit Modell-Rendering folgt
+                }
+            },
+            modifier = modifier.fillMaxSize()
+        )
+    }
 }

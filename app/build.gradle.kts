@@ -76,6 +76,9 @@ dependencies {
     // SceneView für 3D-Modell Viewer (2.2.0 kompatibel mit Kotlin 2.0)
     implementation("io.github.sceneview:sceneview:2.2.0")
     
+    // ARCore für Augmented Reality
+    implementation("com.google.ar:core:1.43.0")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
