@@ -185,9 +185,26 @@ private fun ElevationChartCanvas(profile: ElevationProfile) {
         }
         
         // Zeichne Füllung unter der Linie
-        val fillPath = Path(path)
-        fillPath.lineTo(padding + chartWidth, padding + chartHeight)
-        fillPath.lineTo(padding, padding + chartHeight)
+        val fillPath = Path()
+        // Zeichne den ursprünglichen Pfad nach
+        fillPath.moveTo(startX, startY)
+        points.forEachIndexed { index, point ->
+            if (index > 0) {
+                val x = padding + (point.distance / maxDistance * chartWidth).toFloat()
+                val y = padding + chartHeight - ((point.elevation - minElevation) / elevationRange * chartHeight).toFloat()
+                fillPath.lineTo(x, y)
+            }
+        }
+        // Füge die unteren Ecken hinzu
+        val lastPoint = if (points.isNotEmpty()) {
+            val last = points.last()
+            padding + (last.distance / maxDistance * chartWidth).toFloat()
+        } else {
+            padding
+        }
+        val bottomY = padding + chartHeight
+        fillPath.lineTo(lastPoint, bottomY)
+        fillPath.lineTo(padding, bottomY)
         fillPath.close()
         
         drawPath(
