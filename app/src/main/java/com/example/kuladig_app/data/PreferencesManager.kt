@@ -18,7 +18,7 @@ class PreferencesManager(context: Context) {
     companion object {
         private const val PREFS_NAME = "kuladig_preferences"
         private const val KEY_THEME_MODE = "theme_mode"
-        private const val DEFAULT_THEME_MODE = ThemeMode.SYSTEM.name
+        private val DEFAULT_THEME_MODE = ThemeMode.SYSTEM.name
     }
 
     fun getThemeMode(): ThemeMode {
