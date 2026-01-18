@@ -57,7 +57,7 @@ fun SettingsScreen(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("Einstellungen") }
+                title = { Text("Settings") }
             )
         }
     ) { innerPadding ->

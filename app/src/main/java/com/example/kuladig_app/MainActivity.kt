@@ -108,7 +108,7 @@ fun Kuladig_appApp(
                                 IconButton(onClick = { showSearchScreen = true }) {
                                     Icon(
                                         imageVector = Icons.Default.Search,
-                                        contentDescription = "Suchen"
+                                        contentDescription = "Search"
                                     )
                                 }
                             }
@@ -190,10 +190,10 @@ enum class AppDestinations(
     val icon: ImageVector,
 ) {
     HOME("Home", Icons.Default.Home),
-    KARTE("Karten", Icons.Default.LocationOn),
-    VR("VR", Icons.Default.ViewInAr),
-    PROFILE("Profile", Icons.Default.AccountBox),
-    SETTINGS("Einstellungen", Icons.Default.Settings),
+    KARTE("Map", Icons.Default.LocationOn),
+    VR("AR", Icons.Default.ViewInAr),
+    PROFILE("Tours", Icons.Default.AccountBox),
+    SETTINGS("Settings", Icons.Default.Settings),
 }
 
 @Composable
