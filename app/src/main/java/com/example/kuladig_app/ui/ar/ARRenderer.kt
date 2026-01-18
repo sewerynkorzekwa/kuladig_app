@@ -208,12 +208,19 @@ class ARRenderer(
                 return null
             }
             
-            val anchor = earth.createAnchor(latitude, longitude, altitude, heading, 0.0, 0.0, 0.0, 1.0)
-            if (anchor != null) {
-                addAnchor(anchor)
-                onAnchorCreated(anchor)
-                Log.d("ARRenderer", "Geospatial anchor created at ($latitude, $longitude)")
-            }
+            // ARCore Earth.createAnchor takes: latitude, longitude, altitude, quaternion (qx, qy, qz, qw)
+            // For heading, we need to convert to quaternion (simplified: heading around Y-axis)
+            // Convert heading from degrees to radians
+            val headingRad = Math.toRadians(heading)
+            val qx = 0.0
+            val qy = Math.sin(headingRad / 2.0)
+            val qz = 0.0
+            val qw = Math.cos(headingRad / 2.0)
+            
+            val anchor = earth.createAnchor(latitude, longitude, altitude, qx.toFloat(), qy.toFloat(), qz.toFloat(), qw.toFloat())
+            addAnchor(anchor)
+            onAnchorCreated(anchor)
+            Log.d("ARRenderer", "Geospatial anchor created at ($latitude, $longitude)")
             return anchor
         } catch (e: Exception) {
             Log.e("ARRenderer", "Error creating Geospatial anchor", e)

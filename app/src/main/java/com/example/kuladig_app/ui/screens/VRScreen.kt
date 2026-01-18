@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -556,10 +557,7 @@ fun ARContent(
             update = { view ->
                 // Update renderer session if needed
                 arRenderer?.let { renderer ->
-                    if (view.renderer == null) {
-                        view.setRenderer(renderer)
-                        renderer.setSession(arSession)
-                    }
+                    renderer.setSession(arSession)
                 }
             }
             )
