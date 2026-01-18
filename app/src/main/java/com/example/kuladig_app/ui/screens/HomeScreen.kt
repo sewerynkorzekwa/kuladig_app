@@ -58,16 +58,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
-import kotlin.math.PI
-
-data class ObjectWithDistance(
-    val kuladigObject: KuladigObject,
-    val distance: Double
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -671,33 +661,3 @@ private fun TravelModeDialog(
     )
 }
 
-/**
- * Berechnet die Entfernung zwischen zwei Koordinaten mit der Haversine-Formel
- * @return Entfernung in Metern
- */
-fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-    val earthRadius = 6371000.0 // Erdradius in Metern
-
-    val dLat = (lat2 - lat1) * PI / 180.0
-    val dLon = (lon2 - lon1) * PI / 180.0
-
-    val a = sin(dLat / 2) * sin(dLat / 2) +
-            cos(lat1 * PI / 180.0) * cos(lat2 * PI / 180.0) *
-            sin(dLon / 2) * sin(dLon / 2)
-
-    val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    return earthRadius * c
-}
-
-/**
- * Formatiert die Entfernung in eine lesbare Zeichenkette
- */
-fun formatDistance(distanceInMeters: Double): String {
-    return if (distanceInMeters < 1000) {
-        "${distanceInMeters.toInt()} m"
-    } else {
-        val km = distanceInMeters / 1000.0
-        "%.1f km".format(km)
-    }
-}
